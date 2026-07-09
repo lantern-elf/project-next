@@ -13,7 +13,7 @@ func attack_move(direction: Vector2):
 	body.velocity = Vector2.ZERO
 
 func dash(direction: Vector2):
-	body.velocity = direction * (speed * 20)
+	body.velocity = direction * (speed * 5)
 	if body.velocity == Vector2.ZERO:
 		body.velocity = get_direction_vector() * (speed * 5)
 	await get_tree().create_timer(0.1).timeout

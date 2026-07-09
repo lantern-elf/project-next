@@ -1,15 +1,18 @@
 extends State
 
+const DASH_TIME := 0.12 
+
+var timer := 0.0
+
 func enter():
-	pass
-
-func update(_delta: float):
+	timer = DASH_TIME
 	velocity_component.dash(input.get_input_direction())
-	Transitioned.emit(self, "idle")
-	pass
 
-func physics_update(_delta: float):
-	pass
-
-func exit():
-	pass
+func physics_update(delta):
+	timer -= delta
+	if timer <= 0:
+		velocity_component.stop_move()
+		if input.get_input_direction() == Vector2.ZERO:
+			Transitioned.emit(self,"Idle")
+		else:
+			Transitioned.emit(self,"Move")
