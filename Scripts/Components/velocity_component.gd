@@ -1,6 +1,6 @@
 class_name VelocityComponent extends Node
 
-@export var speed: float = 85.0
+@export var speed: float = 100.00
 @export var body: CharacterBody2D
 @export var input_component: InputComponent
 

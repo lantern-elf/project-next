@@ -8,7 +8,7 @@ func update(_delta):
 	animation_player.play_animation("move", direction)
 
 func physics_update(_delta):
-	velocity_component.move(input.get_input_direction(), 100) # Moving the player based on input
+	velocity_component.move(input.get_input_direction()) # Moving the player based on input
 	
 	# Trigger for trantiton to idle state
 	if input.get_input_direction() == Vector2.ZERO:

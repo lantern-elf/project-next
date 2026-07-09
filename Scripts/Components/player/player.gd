@@ -1,8 +1,5 @@
 extends CharacterBody2D
 
-#@onready var state_machine = $StateMachine
-#@onready var PLInput = $InputComponent
-
 @export var velocity_component: VelocityComponent 
 @export var health_component: HealthComponent
 @export var hitbox_component: HitboxComponent 
@@ -10,8 +7,11 @@ extends CharacterBody2D
 @export var animation_player: AnimationPlayer 
 @export var input_component: InputComponent
 
-var no_attack_time := 0.0
-const attack_RESET_DELAY := 1.0
+var no_attack_time := 0.0 # time to reset attack
+const attack_RESET_DELAY := 1.0 # reset time
+
+var no_dash_time := 0.0
+const dash_RESET_DELAY := 1.0
 
 func _process(delta: float) -> void:
 	if input_component.attack():
@@ -27,4 +27,6 @@ func _process(delta: float) -> void:
 			PlayerActionManager.reset_attack_state()
 	
 	if input_component.dash():
-		state_machine.current_state.Transitioned.emit(state_machine.current_state, "Dash")
+		if PlayerActionManager.can_dash:
+			PlayerActionManager.lock_dash(0.5)
+			state_machine.current_state.Transitioned.emit(state_machine.current_state, "Dash")

@@ -13,6 +13,6 @@ func physics_update(delta):
 	if timer <= 0:
 		velocity_component.stop_move()
 		if input.get_input_direction() == Vector2.ZERO:
-			Transitioned.emit(self,"Idle")
+			Transitioned.emit(self, "Idle")
 		else:
-			Transitioned.emit(self,"Move")
+			Transitioned.emit(self, "Move")
