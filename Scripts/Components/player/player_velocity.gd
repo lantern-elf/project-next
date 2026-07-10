@@ -33,6 +33,3 @@ func dash(direction: Vector2):
 		body.velocity = get_direction_vector() * (speed * 5)
 	await get_tree().create_timer(0.1).timeout
 	body.velocity = Vector2.ZERO
-
-func stop_move():
-	body.velocity = Vector2.ZERO

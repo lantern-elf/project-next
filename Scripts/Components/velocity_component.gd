@@ -50,6 +50,12 @@ func get_direction_vector():
 	return directions_mapping.get(current_direction)
 	@warning_ignore("unreachable_code")
 	print(directions_mapping)
-
-func knockback(direction: Vector2):
-	body.velocity = -direction * 5
+	
+func knockback(knockback_power: float, knockback_origin: Vector2) -> void:
+	var knockback_direction = (knockback_origin -body.velocity.normalized()) * knockback_power
+	body.velocity = knockback_direction
+	await get_tree().create_timer(0.1).timeout
+	stop_move()
+	
+func stop_move():
+	body.velocity = Vector2.ZERO

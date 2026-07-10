@@ -47,5 +47,5 @@ process_callback = 0
 limit_smoothed = true
 position_smoothing_enabled = true
 
-[node name="CharacterBody2D" parent="." unique_id=239896592 instance=ExtResource("3_grga3")]
-position = Vector2(55, -192)
+[node name="Dummy" parent="." unique_id=239896592 instance=ExtResource("3_grga3")]
+position = Vector2(60, -21)

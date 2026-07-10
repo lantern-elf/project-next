@@ -7,5 +7,7 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
+@warning_ignore("unused_parameter")
+func _physics_process(delta: float) -> void:
+	body.move_and_slide()
 	pass

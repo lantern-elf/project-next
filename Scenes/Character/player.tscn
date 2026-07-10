@@ -561,7 +561,6 @@ libraries/ = SubResource("AnimationLibrary_f70vh")
 script = ExtResource("5_gbr73")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728868526]
-visible = false
 position = Vector2(0, 11)
 shape = SubResource("CapsuleShape2D_hv1gp")
 
