@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://dvfbsgbav27kr"]
+
+[ext_resource type="Script" uid="uid://bylg8fwouymrw" path="res://Scripts/Tiles/hazard_area.gd" id="1_c8qqk"]
+[ext_resource type="Texture2D" uid="uid://bbifxdec6ndcs" path="res://Assets/Tilesets/spikes.png" id="2_42v1o"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
+
+[node name="Spikes" type="Area2D" unique_id=1150087176]
+script = ExtResource("1_c8qqk")
+damage = 0.1
+metadata/_custom_type_script = "uid://bylg8fwouymrw"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1149463482]
+texture = ExtResource("2_42v1o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2017483009]
+shape = SubResource("RectangleShape2D_bhunq")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]

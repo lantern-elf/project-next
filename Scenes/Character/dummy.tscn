@@ -43,11 +43,12 @@ max_health = 100.0
 current_health = 100.0
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
-[node name="HitboxComponent" type="Area2D" parent="." unique_id=1464196718 node_paths=PackedStringArray("body", "health_component") groups=["Hitable"]]
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1464196718 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Hitable"]]
 visible = false
 script = ExtResource("4_cpape")
 body = NodePath("..")
 health_component = NodePath("../HealthComponent")
+velocity_component = NodePath("../VelocityComponent")
 metadata/_custom_type_script = "uid://bbjqboc0c7kua"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1982987470]

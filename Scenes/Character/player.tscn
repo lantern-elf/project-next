@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://c6s31ag0fmwlw"]
 
 [ext_resource type="Script" uid="uid://dtfps8qf1x1qu" path="res://Scripts/Components/player/player.gd" id="1_euf1r"]
+[ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_t23lb"]
 [ext_resource type="Texture2D" uid="uid://denj8o6tubo3k" path="res://Assets/Characters/Player/player.png" id="2_yg3nc"]
 [ext_resource type="Script" uid="uid://d2wdhnd1xm5g8" path="res://Scripts/Components/animation_player.gd" id="5_gbr73"]
 [ext_resource type="Script" uid="uid://b000defd3f8oe" path="res://Scripts/Components/state_mechine.gd" id="6_ls1a5"]
@@ -15,6 +16,11 @@
 [ext_resource type="Script" uid="uid://cdhu5osdubd83" path="res://Scripts/Components/damage_component.gd" id="12_hv1gp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_euf1r"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_c8qqk"]
+shader = ExtResource("2_t23lb")
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = false
 
 [sub_resource type="Animation" id="Animation_q88xf"]
 length = 0.001
@@ -552,6 +558,7 @@ input_component = NodePath("InputComponent")
 [node name="Sprites" type="Node2D" parent="." unique_id=1013672199]
 
 [node name="Body" type="Sprite2D" parent="Sprites" unique_id=18059703]
+material = SubResource("ShaderMaterial_c8qqk")
 texture = ExtResource("2_yg3nc")
 hframes = 6
 vframes = 9
@@ -624,11 +631,12 @@ body_sprite = NodePath("../Sprites/Body")
 velocity_component = NodePath("../VelocityComponent")
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
-[node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component") groups=["Hitable", "Player", "player"]]
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Hitable", "Player", "player"]]
 visible = false
 script = ExtResource("11_s7hvb")
 body = NodePath("..")
 health_component = NodePath("../HealthComponent")
+velocity_component = NodePath("../VelocityComponent")
 metadata/_custom_type_script = "uid://bbjqboc0c7kua"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=211747250]

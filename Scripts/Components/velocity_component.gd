@@ -52,8 +52,9 @@ func get_direction_vector():
 	print(directions_mapping)
 	
 func knockback(knockback_power: float, knockback_origin: Vector2) -> void:
-	var knockback_direction = (knockback_origin -body.velocity.normalized()) * knockback_power
-	body.velocity = knockback_direction
+	var knockback_direction = (body.global_position - knockback_origin).normalized() 
+	body.velocity = knockback_direction * knockback_power
+	print_debug("knock", body.velocity)
 	await get_tree().create_timer(0.1).timeout
 	stop_move()
 	
