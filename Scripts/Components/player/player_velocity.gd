@@ -1,6 +1,21 @@
 extends VelocityComponent
 
+@export var input_component: InputComponent
 var input_direction: Vector2
+
+@warning_ignore("unused_parameter")
+func _physics_process(delta: float) -> void:
+	var input_dir = input_component.get_input_direction()
+
+	# Update internal direction states
+	last_direction = current_direction
+	if input_dir.length() > 0:
+		current_direction = get_direction_name(input_dir, current_direction)
+	else:
+		pass
+
+	# Move body
+	body.move_and_slide()
 
 func move(direction: Vector2, _speed = speed):
 	body.velocity = direction.normalized() * _speed

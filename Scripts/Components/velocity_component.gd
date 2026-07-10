@@ -2,25 +2,10 @@ class_name VelocityComponent extends Node
 
 @export var speed: float = 100.00
 @export var body: CharacterBody2D
-@export var input_component: InputComponent
 
 var initial_direction: String = "down"
 var current_direction: String = "down"
 var last_direction: String = "down"
-
-@warning_ignore("unused_parameter")
-func _physics_process(delta: float) -> void:
-	var input_dir = input_component.get_input_direction()
-
-	# Update internal direction states
-	last_direction = current_direction
-	if input_dir.length() > 0:
-		current_direction = get_direction_name(input_dir, current_direction)
-	else:
-		pass
-
-	# Move body
-	body.move_and_slide()
 
 func get_direction_name(input_vector: Vector2, previous_direction: String) -> String:
 	var directions = []
@@ -65,3 +50,6 @@ func get_direction_vector():
 	return directions_mapping.get(current_direction)
 	@warning_ignore("unreachable_code")
 	print(directions_mapping)
+
+func knockback(direction: Vector2):
+	body.velocity = -direction * 5

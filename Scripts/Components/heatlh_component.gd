@@ -3,6 +3,7 @@ class_name HealthComponent
 
 @export var body: CharacterBody2D
 @export var body_sprite: Sprite2D
+@export var velocity_component: VelocityComponent
 @export var max_health = 3.0
 @export var current_health = 3.0
 

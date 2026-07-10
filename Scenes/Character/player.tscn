@@ -611,17 +611,18 @@ metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 script = ExtResource("10_euf1r")
 metadata/_custom_type_script = "uid://dia5y2pprj1ku"
 
-[node name="VelocityComponent" type="Node" parent="." unique_id=1651160415 node_paths=PackedStringArray("body", "input_component")]
+[node name="VelocityComponent" type="Node" parent="." unique_id=1651160415 node_paths=PackedStringArray("input_component", "body")]
 script = ExtResource("11_euf1r")
+input_component = NodePath("../InputComponent")
 speed = 80.0
 body = NodePath("..")
-input_component = NodePath("../InputComponent")
 metadata/_custom_type_script = "uid://ckpupq8ov0ifl"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=186809891 node_paths=PackedStringArray("body", "body_sprite")]
+[node name="HealthComponent" type="Node" parent="." unique_id=186809891 node_paths=PackedStringArray("body", "body_sprite", "velocity_component")]
 script = ExtResource("10_17ttd")
 body = NodePath("..")
 body_sprite = NodePath("../Sprites/Body")
+velocity_component = NodePath("../VelocityComponent")
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component") groups=["Hitable", "Player", "player"]]

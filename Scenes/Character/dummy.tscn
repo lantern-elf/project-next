@@ -5,6 +5,7 @@
 [ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_8dru5"]
 [ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/heatlh_component.gd" id="3_jgjjh"]
 [ext_resource type="Script" uid="uid://bbjqboc0c7kua" path="res://Scripts/Components/hitbox_component.gd" id="4_cpape"]
+[ext_resource type="Script" uid="uid://c30c3a20eki34" path="res://Scripts/Components/dummy/dummy_velocity.gd" id="6_0oppb"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_h1wek"]
 shader = ExtResource("2_8dru5")
@@ -47,3 +48,8 @@ metadata/_custom_type_script = "uid://bbjqboc0c7kua"
 position = Vector2(0, 6)
 shape = SubResource("RectangleShape2D_cpape")
 debug_color = Color(0.14520264, 0.953125, 0.1767621, 0.41960785)
+
+[node name="VelocityComponent" type="Node" parent="." unique_id=1693347746 node_paths=PackedStringArray("body")]
+script = ExtResource("6_0oppb")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://ckpupq8ov0ifl"
