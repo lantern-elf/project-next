@@ -12,8 +12,9 @@ shader = ExtResource("2_8dru5")
 shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
 shader_parameter/hit_flash_on = false
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_l12si"]
-size = Vector2(10, 12)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bmmq7"]
+radius = 5.0
+height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cpape"]
 size = Vector2(10, 18)
@@ -30,8 +31,8 @@ material = SubResource("ShaderMaterial_h1wek")
 texture = ExtResource("1_7w4d5")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1660588747]
-position = Vector2(0, 12)
-shape = SubResource("RectangleShape2D_l12si")
+position = Vector2(0, 11)
+shape = SubResource("CapsuleShape2D_bmmq7")
 
 [node name="HealthComponent" type="Node" parent="." unique_id=280477271 node_paths=PackedStringArray("body", "body_sprite", "velocity_component")]
 script = ExtResource("3_jgjjh")
@@ -43,6 +44,7 @@ current_health = 100.0
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=1464196718 node_paths=PackedStringArray("body", "health_component") groups=["Hitable"]]
+visible = false
 script = ExtResource("4_cpape")
 body = NodePath("..")
 health_component = NodePath("../HealthComponent")

@@ -48,4 +48,4 @@ limit_smoothed = true
 position_smoothing_enabled = true
 
 [node name="Dummy" parent="." unique_id=239896592 instance=ExtResource("3_grga3")]
-position = Vector2(60, -21)
+position = Vector2(127, -87)
