@@ -1,0 +1,49 @@
+[gd_scene format=3 uid="uid://cwfl8qpg2fqwa"]
+
+[ext_resource type="Texture2D" uid="uid://bv2li7iu83jgc" path="res://Assets/Entity/dummy.png" id="1_7w4d5"]
+[ext_resource type="Script" uid="uid://d0m1p8iypo86o" path="res://Scripts/Entity/Dummy/dummy.gd" id="1_kpirl"]
+[ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_8dru5"]
+[ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/heatlh_component.gd" id="3_jgjjh"]
+[ext_resource type="Script" uid="uid://bbjqboc0c7kua" path="res://Scripts/Components/hitbox_component.gd" id="4_cpape"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h1wek"]
+shader = ExtResource("2_8dru5")
+shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
+shader_parameter/hit_flash_on = false
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_7w4d5"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cpape"]
+size = Vector2(10, 18)
+
+[node name="CharacterBody2D" type="CharacterBody2D" unique_id=239896592 node_paths=PackedStringArray("health_component", "hitbox_component")]
+script = ExtResource("1_kpirl")
+health_component = NodePath("HealthComponent")
+hitbox_component = NodePath("HitboxComponent")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1409526391]
+material = SubResource("ShaderMaterial_h1wek")
+texture = ExtResource("1_7w4d5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1660588747]
+position = Vector2(0, 11)
+shape = SubResource("CapsuleShape2D_7w4d5")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=280477271 node_paths=PackedStringArray("body", "body_sprite")]
+script = ExtResource("3_jgjjh")
+body = NodePath("..")
+body_sprite = NodePath("../Sprite2D")
+metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
+
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=1464196718 node_paths=PackedStringArray("body", "health_component") groups=["Hitable"]]
+script = ExtResource("4_cpape")
+body = NodePath("..")
+health_component = NodePath("../HealthComponent")
+metadata/_custom_type_script = "uid://bbjqboc0c7kua"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=1982987470]
+position = Vector2(0, 6)
+shape = SubResource("RectangleShape2D_cpape")
+debug_color = Color(0.14520264, 0.953125, 0.1767621, 0.41960785)

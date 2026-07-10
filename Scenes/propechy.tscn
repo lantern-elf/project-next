@@ -1,0 +1,42 @@
+[gd_scene format=3 uid="uid://4wjixpo6joj1"]
+
+[ext_resource type="Shader" uid="uid://brahm3e5673d2" path="res://sssss.gdshader" id="1_dbaxd"]
+[ext_resource type="Texture2D" uid="uid://dh0j0ffvtca6t" path="res://Assets/Unknown/my_propechy.png" id="2_2xtvo"]
+[ext_resource type="Texture2D" uid="uid://c1phupaptxeyq" path="res://Assets/Unknown/depth-blue.png" id="2_s5w7k"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_2xtvo"]
+shader = ExtResource("1_dbaxd")
+shader_parameter/Scroll_Texture = ExtResource("2_s5w7k")
+shader_parameter/Use_Original_Texture = false
+shader_parameter/Scrolling_Speed = Vector2(-1, -1)
+shader_parameter/Time_Scale = 0.1
+shader_parameter/Texture_Scale = 1.0
+shader_parameter/Height = 2.0
+shader_parameter/Cycles = 0.4
+shader_parameter/Offset = 0.0
+shader_parameter/Distance = 0.0
+shader_parameter/Count = 2
+shader_parameter/Fade = 0.0
+shader_parameter/Start_Alpha = 0.8
+shader_parameter/Tint_Amount = 1.0
+shader_parameter/Tint = Color(1, 1, 1, 1)
+shader_parameter/Pulse_both_Directions = false
+shader_parameter/Diagonal_Angle = 45.0
+shader_parameter/Echo_Blend_Mode = 0
+
+[node name="Node2D" type="Node2D" unique_id=2103659182]
+
+[node name="ColorRect" type="TextureRect" parent="." unique_id=1687366199]
+modulate = Color(0.103744, 0.103744, 0.103744, 1)
+offset_left = -151.0
+offset_top = -115.0
+offset_right = 154.0
+offset_bottom = 141.0
+texture = ExtResource("2_s5w7k")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1188810769]
+zoom = Vector2(4, 4)
+
+[node name="MyPropechy" type="Sprite2D" parent="." unique_id=1503817782]
+material = SubResource("ShaderMaterial_2xtvo")
+texture = ExtResource("2_2xtvo")
