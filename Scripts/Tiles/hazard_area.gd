@@ -15,3 +15,4 @@ func _process(delta: float) -> void:
 func _on_area_entered(area: HitboxComponent) -> void:
 	if area is HitboxComponent:
 		area.health_component.take_damage(damage)
+		area.velocity_component.knockback(1000, global_position)

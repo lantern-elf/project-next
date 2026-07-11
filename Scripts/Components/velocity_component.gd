@@ -48,14 +48,11 @@ func get_direction_vector():
 		"right" : Vector2.RIGHT
 	}
 	return directions_mapping.get(current_direction)
-	@warning_ignore("unreachable_code")
-	print(directions_mapping)
 	
 func knockback(knockback_power: float, knockback_origin: Vector2) -> void:
 	var knockback_direction = (body.global_position - knockback_origin).normalized() 
 	body.velocity = knockback_direction * knockback_power
-	print_debug("knock", body.velocity)
-	await get_tree().create_timer(0.1).timeout
+	await get_tree().create_timer(0.5).timeout
 	stop_move()
 	
 func stop_move():

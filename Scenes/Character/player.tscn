@@ -4,11 +4,11 @@
 [ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_t23lb"]
 [ext_resource type="Texture2D" uid="uid://denj8o6tubo3k" path="res://Assets/Characters/Player/player.png" id="2_yg3nc"]
 [ext_resource type="Script" uid="uid://d2wdhnd1xm5g8" path="res://Scripts/Components/animation_player.gd" id="5_gbr73"]
-[ext_resource type="Script" uid="uid://b000defd3f8oe" path="res://Scripts/Components/state_mechine.gd" id="6_ls1a5"]
+[ext_resource type="Script" uid="uid://b000defd3f8oe" path="res://Scripts/Components/state_machine.gd" id="6_ls1a5"]
 [ext_resource type="Script" uid="uid://bwpids7ole6x3" path="res://Scripts/Components/player/player_idle.gd" id="7_qacmv"]
 [ext_resource type="Script" uid="uid://i2lhg6al5hwu" path="res://Scripts/Components/player/player_dash.gd" id="8_l12si"]
 [ext_resource type="Script" uid="uid://d83c3nlxbn4e" path="res://Scripts/Components/player/player_move.gd" id="8_n6ksf"]
-[ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/heatlh_component.gd" id="10_17ttd"]
+[ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/health_component.gd" id="10_17ttd"]
 [ext_resource type="Script" uid="uid://dia5y2pprj1ku" path="res://Scripts/Components/player/input_component.gd" id="10_euf1r"]
 [ext_resource type="Script" uid="uid://ctra62md4cxsw" path="res://Scripts/Components/player/player_attack.gd" id="10_usyan"]
 [ext_resource type="Script" uid="uid://132rvkjkmayo" path="res://Scripts/Components/player/player_velocity.gd" id="11_euf1r"]
@@ -536,7 +536,7 @@ radius = 5.0
 height = 14.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hv1gp"]
-size = Vector2(8, 12)
+size = Vector2(14, 33)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(28, 27)
@@ -632,7 +632,6 @@ velocity_component = NodePath("../VelocityComponent")
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Hitable", "Player", "player"]]
-visible = false
 script = ExtResource("11_s7hvb")
 body = NodePath("..")
 health_component = NodePath("../HealthComponent")
@@ -640,7 +639,7 @@ velocity_component = NodePath("../VelocityComponent")
 metadata/_custom_type_script = "uid://bbjqboc0c7kua"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=211747250]
-position = Vector2(0, 5)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_hv1gp")
 debug_color = Color(0, 1, 0.13335153, 0.16100001)
 

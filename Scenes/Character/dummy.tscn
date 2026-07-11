@@ -3,7 +3,7 @@
 [ext_resource type="Texture2D" uid="uid://bv2li7iu83jgc" path="res://Assets/Entity/dummy.png" id="1_7w4d5"]
 [ext_resource type="Script" uid="uid://d0m1p8iypo86o" path="res://Scripts/Entity/Dummy/dummy.gd" id="1_kpirl"]
 [ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_8dru5"]
-[ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/heatlh_component.gd" id="3_jgjjh"]
+[ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/health_component.gd" id="3_jgjjh"]
 [ext_resource type="Script" uid="uid://bbjqboc0c7kua" path="res://Scripts/Components/hitbox_component.gd" id="4_cpape"]
 [ext_resource type="Script" uid="uid://c30c3a20eki34" path="res://Scripts/Components/dummy/dummy_velocity.gd" id="6_0oppb"]
 
