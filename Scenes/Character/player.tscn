@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/health_component.gd" id="10_17ttd"]
 [ext_resource type="Script" uid="uid://dia5y2pprj1ku" path="res://Scripts/Components/player/input_component.gd" id="10_euf1r"]
 [ext_resource type="Script" uid="uid://ctra62md4cxsw" path="res://Scripts/Components/player/player_attack.gd" id="10_usyan"]
+[ext_resource type="Script" uid="uid://b0smyxfkp28gn" path="res://Scripts/Components/player/player_hurt.gd" id="10_v0bjn"]
 [ext_resource type="Script" uid="uid://132rvkjkmayo" path="res://Scripts/Components/player/player_velocity.gd" id="11_euf1r"]
 [ext_resource type="Script" uid="uid://bbjqboc0c7kua" path="res://Scripts/Components/hitbox_component.gd" id="11_s7hvb"]
 [ext_resource type="Script" uid="uid://cdhu5osdubd83" path="res://Scripts/Components/damage_component.gd" id="12_hv1gp"]
@@ -611,6 +612,10 @@ state_machine = NodePath("..")
 animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
+metadata/_custom_type_script = "uid://bm2f3j8do6unm"
+
+[node name="Hurt" type="Node" parent="StateMachine" unique_id=546327445]
+script = ExtResource("10_v0bjn")
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
 [node name="InputComponent" type="Node" parent="." unique_id=817755793]

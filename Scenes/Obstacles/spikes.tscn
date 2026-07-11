@@ -20,10 +20,7 @@ shape = SubResource("RectangleShape2D_bhunq")
 [node name="hazard_area" type="Area2D" parent="." unique_id=1875031926]
 input_pickable = false
 script = ExtResource("1_c8qqk")
-damage = 0.1
 metadata/_custom_type_script = "uid://bylg8fwouymrw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hazard_area" unique_id=2027728946]
 shape = SubResource("RectangleShape2D_riqys")
-
-[connection signal="area_entered" from="hazard_area" to="hazard_area" method="_on_area_entered"]
