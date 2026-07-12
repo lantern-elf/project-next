@@ -4,17 +4,19 @@
 [ext_resource type="Texture2D" uid="uid://bbifxdec6ndcs" path="res://Assets/Tilesets/spikes.png" id="2_42v1o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
-size = Vector2(8, 8)
+size = Vector2(22, 16)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_riqys"]
 size = Vector2(24, 24)
 
 [node name="Spikes" type="StaticBody2D" unique_id=353695539]
+y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1149463482]
 texture = ExtResource("2_42v1o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2017483009]
+position = Vector2(0, 3)
 shape = SubResource("RectangleShape2D_bhunq")
 
 [node name="hazard_area" type="Area2D" parent="." unique_id=1875031926]
@@ -24,3 +26,6 @@ metadata/_custom_type_script = "uid://bylg8fwouymrw"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hazard_area" unique_id=2027728946]
 shape = SubResource("RectangleShape2D_riqys")
+
+[connection signal="area_entered" from="hazard_area" to="hazard_area" method="_on_area_entered"]
+[connection signal="area_exited" from="hazard_area" to="hazard_area" method="_on_area_exited"]

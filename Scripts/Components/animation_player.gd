@@ -1,5 +1,8 @@
 extends AnimationPlayer
 
+@export var body: CharacterBody2D
+@export var body_sprite: Sprite2D
+
 func play_animation(action: String, direction: String, reverse_frame: bool = false):
 	var anim_name = "%s_%s" % [action, direction]
 	if has_animation(anim_name):

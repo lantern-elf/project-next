@@ -564,9 +564,11 @@ texture = ExtResource("2_yg3nc")
 hframes = 6
 vframes = 9
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprites" unique_id=1915922564]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Sprites" unique_id=1915922564 node_paths=PackedStringArray("body", "body_sprite")]
 libraries/ = SubResource("AnimationLibrary_f70vh")
 script = ExtResource("5_gbr73")
+body = NodePath("../..")
+body_sprite = NodePath("../Body")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728868526]
 position = Vector2(0, 11)
@@ -578,44 +580,54 @@ initial_state = NodePath("Idle")
 current_state = NodePath("Idle")
 metadata/_custom_type_script = "uid://b000defd3f8oe"
 
-[node name="Idle" type="Node" parent="StateMachine" unique_id=834763225 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input")]
+[node name="Idle" type="Node" parent="StateMachine" unique_id=834763225 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
 script = ExtResource("7_qacmv")
 body = NodePath("../..")
 state_machine = NodePath("..")
 animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
+health_component = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
-[node name="Move" type="Node" parent="StateMachine" unique_id=891280644 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input")]
+[node name="Move" type="Node" parent="StateMachine" unique_id=891280644 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
 script = ExtResource("8_n6ksf")
 body = NodePath("../..")
 state_machine = NodePath("..")
 animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
+health_component = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
-[node name="Attack" type="Node" parent="StateMachine" unique_id=1779520664 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input")]
+[node name="Attack" type="Node" parent="StateMachine" unique_id=1779520664 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
 script = ExtResource("10_usyan")
 body = NodePath("../..")
 state_machine = NodePath("..")
 animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
+health_component = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
-[node name="Dash" type="Node" parent="StateMachine" unique_id=1377635766 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input")]
+[node name="Dash" type="Node" parent="StateMachine" unique_id=1377635766 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
 script = ExtResource("8_l12si")
 body = NodePath("../..")
 state_machine = NodePath("..")
 animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
+health_component = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
-[node name="Hurt" type="Node" parent="StateMachine" unique_id=546327445]
+[node name="Hurt" type="Node" parent="StateMachine" unique_id=546327445 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
 script = ExtResource("10_v0bjn")
+body = NodePath("../..")
+state_machine = NodePath("..")
+animation_player = NodePath("../../Sprites/AnimationPlayer")
+velocity_component = NodePath("../../VelocityComponent")
+input = NodePath("../../InputComponent")
+health_component = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
 [node name="InputComponent" type="Node" parent="." unique_id=817755793]
@@ -629,11 +641,12 @@ speed = 80.0
 body = NodePath("..")
 metadata/_custom_type_script = "uid://ckpupq8ov0ifl"
 
-[node name="HealthComponent" type="Node" parent="." unique_id=186809891 node_paths=PackedStringArray("body", "body_sprite", "velocity_component")]
+[node name="HealthComponent" type="Node" parent="." unique_id=186809891 node_paths=PackedStringArray("body", "body_sprite", "velocity_component", "state_machine")]
 script = ExtResource("10_17ttd")
 body = NodePath("..")
 body_sprite = NodePath("../Sprites/Body")
 velocity_component = NodePath("../VelocityComponent")
+state_machine = NodePath("../StateMachine")
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Hitable", "Player", "player"]]

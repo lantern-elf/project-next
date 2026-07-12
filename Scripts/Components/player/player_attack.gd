@@ -17,8 +17,8 @@ func enter():
 	Transitioned.emit(self, "Idle")
 
 
-func physics_update(_delta: float):
-	velocity_component.attack_move(input.get_input_direction())
+#func physics_update(_delta: float):
+	#velocity_component.attack_move(input.get_input_direction())
 
 func exit():
 	velocity_component.stop_move()

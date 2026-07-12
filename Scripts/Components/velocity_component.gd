@@ -7,6 +7,8 @@ var initial_direction: String = "down"
 var current_direction: String = "down"
 var last_direction: String = "down"
 
+signal knockback_finished
+
 func get_direction_name(input_vector: Vector2, previous_direction: String) -> String:
 	var directions = []
 
@@ -49,10 +51,11 @@ func get_direction_vector():
 	}
 	return directions_mapping.get(current_direction)
 	
-func knockback(power: float, source: Vector2) -> void:
+func knockback(power: float, source: Vector2, duration: float = .1) -> void:
 	var knockback_direction = (body.global_position - source).normalized() 
 	body.velocity = knockback_direction * power
-	await get_tree().create_timer(0.5).timeout
+	await get_tree().create_timer(duration).timeout
+	knockback_finished.emit()
 	stop_move()
 	
 func stop_move():

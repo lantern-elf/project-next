@@ -5,6 +5,7 @@ class_name State extends Node
 @export var animation_player: AnimationPlayer
 @export var velocity_component: VelocityComponent
 @export var input: InputComponent #assign to input component if needed
+@export var health_component: HealthComponent
 
 @warning_ignore("unused_signal")
 signal Transitioned
