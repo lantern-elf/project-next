@@ -532,9 +532,9 @@ _data = {
 &"move_up": SubResource("Animation_kaplj")
 }
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hv1gp"]
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4jgyf"]
 radius = 5.0
-height = 14.0
+height = 12.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hv1gp"]
 size = Vector2(14, 33)
@@ -571,8 +571,8 @@ body = NodePath("../..")
 body_sprite = NodePath("../Body")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728868526]
-position = Vector2(0, 11)
-shape = SubResource("CapsuleShape2D_hv1gp")
+position = Vector2(0, 12)
+shape = SubResource("CapsuleShape2D_4jgyf")
 
 [node name="StateMachine" type="Node" parent="." unique_id=1117662273 node_paths=PackedStringArray("initial_state", "current_state")]
 script = ExtResource("6_ls1a5")
@@ -655,11 +655,13 @@ body = NodePath("..")
 health_component = NodePath("../HealthComponent")
 velocity_component = NodePath("../VelocityComponent")
 metadata/_custom_type_script = "uid://bbjqboc0c7kua"
+metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=211747250]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_hv1gp")
 debug_color = Color(0, 1, 0.13335153, 0.16100001)
+metadata/_edit_lock_ = true
 
 [node name="SwordArea" type="Area2D" parent="." unique_id=1345265775 node_paths=PackedStringArray("body")]
 visible = false

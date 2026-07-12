@@ -19,10 +19,10 @@ func _physics_process(delta: float) -> void:
 		if area.health_component.current_health > 0:
 				area.health_component.take_damage(damage, knockback_power, global_position)
 
-func _on_area_entered(area: HitboxComponent) -> void:
+func _on_area_entered(area: Area2D) -> void:
 	if area is HitboxComponent and area.health_component:
 		areas_to_affected.append(area)
 
-func _on_area_exited(area) -> void:
+func _on_area_exited(area: Area2D) -> void:
 	if is_instance_valid(area):
 		areas_to_affected.erase(area)

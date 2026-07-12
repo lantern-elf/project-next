@@ -24,8 +24,3 @@ func attack() -> bool:
 
 func dash() -> bool:
 	return Input.is_action_just_pressed("dash")
-
-#func start_attack_cooldown(duration: float) -> void:
-	#attack_disabled = true
-	#await get_tree().create_timer(duration).timeout
-	#attack_disabled = false

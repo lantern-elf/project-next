@@ -11,7 +11,7 @@ func _physics_process(delta):
 	if is_knockbacked:
 		body.move_and_slide()
 		return
-	body.velocity = Vector2.DOWN * 50
+	body.velocity = Vector2.ZERO
 	body.move_and_slide()
 
 func knockback(power, source, duration = .1):

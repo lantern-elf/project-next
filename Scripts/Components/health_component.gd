@@ -41,7 +41,6 @@ func die():
 	if state_machine and state_machine.current_state.name != "die":
 		body.queue_free()
 	body.queue_free()
-	
 
 func flash_hit():
 	body_sprite.material.set_shader_parameter("hit_flash_on", true)

@@ -8,8 +8,6 @@ func enter():
 	last_knockback_power = health_component.last_knockback_power
 	last_knockback_source = health_component.last_knockback_source
 	last_knockback_duration = health_component.last_knockback_duration
-	print_debug("hurt")
-	pass
 
 func update(_delta: float):
 	pass
