@@ -28,11 +28,14 @@ aseprite_executable_path="C:/Program Files (x86)/Steam/steamapps/common/Aseprite
 [autoload]
 
 PlayerActionManager="*res://Scripts/Managers/PlayerActionManager.gd"
+TimeManager="*uid://bvjdrk7ocrm2u"
 
 [display]
 
 window/size/viewport_width=640
 window/size/viewport_height=360
+window/size/resizable=false
+window/size/borderless=true
 window/stretch/mode="canvas_items"
 
 [dotnet]
