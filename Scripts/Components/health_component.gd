@@ -16,7 +16,7 @@ var damage_cooldown: bool = false
 
 signal get_damage
 
-func take_damage(amount: float = 1.00, damage_knockback_power: float = 0.00, damage_knockback_source: Vector2 = Vector2.ZERO, damage_knockback_duration: float = .1):
+func take_damage(amount: float = 1.00, damage_knockback_power: float = 0.00, damage_knockback_source: Vector2 = Vector2.ZERO, damage_knockback_duration: float = .1, cooldown_duration: float = 1.0):
 	last_knockback_power = damage_knockback_power
 	last_knockback_source = damage_knockback_source
 	last_knockback_duration = damage_knockback_duration
@@ -29,7 +29,7 @@ func take_damage(amount: float = 1.00, damage_knockback_power: float = 0.00, dam
 		if current_health <= 0:
 			die()
 		damage_cooldown = true
-		await get_tree().create_timer(1.0, true, false, true).timeout
+		await get_tree().create_timer(cooldown_duration, true, false, true).timeout
 		damage_cooldown = false
 
 func heal(amount: float):

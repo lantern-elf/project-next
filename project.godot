@@ -16,6 +16,7 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 config/name="project-next"
 config/description="Action Adventure Zelda-like game"
+config/version="0.1"
 run/main_scene="uid://bcf0s8me6jwje"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 config/icon="uid://cwijxu6bvlrdb"
@@ -32,7 +33,6 @@ PlayerActionManager="*res://Scripts/Managers/PlayerActionManager.gd"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/borderless=true
 window/stretch/mode="canvas_items"
 
 [dotnet]
