@@ -11,12 +11,9 @@ func enter():
 		
 	var dir = velocity_component.current_direction + str(anim_state)
 	animation_player.play_animation("attack", dir)
-		
+	
 	await animation_player.animation_finished
 	Transitioned.emit(self, "Idle")
 
 func physics_update(_delta: float):
 	velocity_component.attack_move(input.get_input_direction())
-
-func exit():
-	velocity_component.stop_move()

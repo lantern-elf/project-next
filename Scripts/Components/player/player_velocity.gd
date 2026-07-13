@@ -19,9 +19,7 @@ func move(direction: Vector2, _speed = speed):
 	body.velocity = direction.normalized() * _speed
 
 func attack_move(direction: Vector2):
-	body.velocity = direction * (speed * 1) # faster for a burst
-	#if direction == Vector2.ZERO:
-		#body.velocity = get_direction_vector() * (speed * .5) # faster for a burst but if not input
+	body.velocity = direction * (speed * 1.8)
 	await get_tree().create_timer(0.1).timeout
 	stop_move()
 
