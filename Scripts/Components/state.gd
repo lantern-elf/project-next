@@ -7,6 +7,8 @@ class_name State extends Node
 @export var input: InputComponent #assign to input component if needed
 @export var health_component: HealthComponent
 
+@export var is_uninterruptible: bool = false
+
 @warning_ignore("unused_signal")
 signal Transitioned
 

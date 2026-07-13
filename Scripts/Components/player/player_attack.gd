@@ -2,6 +2,9 @@ extends State
 
 var anim_state
 
+func _ready():
+	is_uninterruptible = true
+
 func enter():
 	PlayerActionManager.attack_state += 1
 	if PlayerActionManager.attack_state > 4:
@@ -16,6 +19,3 @@ func enter():
 	
 	await animation_player.animation_finished
 	Transitioned.emit(self, "Idle")
-
-#func update(_delta: float):
-	#velocity_component.attack_move(input.get_input_direction())

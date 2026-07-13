@@ -28,4 +28,3 @@ func on_body_get_damage():
 	var duration = body.health_component.last_knockback_duration
 	
 	knockback(power, source, duration)
-	
