@@ -3,7 +3,7 @@ extends VelocityComponent
 var is_knockbacked: bool = false
 
 func _ready() -> void:
-	body.health_component.get_damage.connect(on_body_get_damage)
+	body.health_component.damaged.connect(on_body_get_damage)
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):

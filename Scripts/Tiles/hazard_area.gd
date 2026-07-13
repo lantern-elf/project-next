@@ -1,7 +1,7 @@
 extends Area2D
 class_name hazard_area
 
-@export var damage: float = 0.1
+@export var damage: float = 1.00
 @export var knockback_power: = 200.00
 
 var areas_to_affected: Array = []
