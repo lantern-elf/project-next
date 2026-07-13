@@ -13,9 +13,7 @@ func _physics_process(delta: float) -> void:
 		current_direction = get_direction_name(input_dir, current_direction)
 	else:
 		pass
-
-	# Move body
-	body.move_and_slide()
+	body.move_and_slide() # Move body
 
 func move(direction: Vector2, _speed = speed):
 	body.velocity = direction.normalized() * _speed

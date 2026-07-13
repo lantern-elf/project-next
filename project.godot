@@ -39,10 +39,6 @@ window/stretch/mode="canvas_items"
 
 project/assembly_name="project-next"
 
-[editor_plugins]
-
-enabled=PackedStringArray()
-
 [global_group]
 
 Hitable=""

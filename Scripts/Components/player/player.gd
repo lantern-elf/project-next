@@ -7,8 +7,8 @@ extends CharacterBody2D
 @export var animation_player: AnimationPlayer 
 @export var input_component: InputComponent
 
-var no_attack_time := 0.0 # time to reset attack
-const attack_RESET_DELAY := 1.0 # reset time
+var no_attack_time := 0.0 # time before reset attack
+const attack_RESET_DELAY := 1.0 # reset attack time
 
 var no_dash_time := 0.0
 const dash_RESET_DELAY := 1.0

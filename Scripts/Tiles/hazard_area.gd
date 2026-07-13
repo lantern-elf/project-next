@@ -6,10 +6,6 @@ class_name hazard_area
 
 var areas_to_affected: Array = []
 
-# Called when the node enters the scene tree for the first time.
-func _ready() -> void:
-	pass # Replace with function body.
-
 @warning_ignore("unused_parameter")
 func _physics_process(delta: float) -> void:
 	for area in areas_to_affected.duplicate():

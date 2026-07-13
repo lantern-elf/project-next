@@ -4,7 +4,6 @@ var is_knockbacked: bool = false
 
 func _ready() -> void:
 	body.health_component.get_damage.connect(on_body_get_damage)
-	pass # Replace with function body.
 
 @warning_ignore("unused_parameter")
 func _physics_process(delta):

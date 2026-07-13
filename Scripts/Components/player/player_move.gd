@@ -8,10 +8,8 @@ func update(_delta):
 	animation_player.play_animation("move", direction)
 
 func physics_update(_delta):
-	velocity_component.move(input.get_input_direction()) # Moving the player based on input
-	
-	# Trigger for trantiton to idle state
+	velocity_component.move(input.get_input_direction())
 	if input.get_input_direction() == Vector2.ZERO:
-		#await get_tree().create_timer(0.1).timeout #await for the animation doesn't change immediately
 		#await animation_player.animation_finished
+		#await get_tree().create_timer(0.1).timeout #await for the animation doesn't change immediately
 		Transitioned.emit(self, "Idle")
