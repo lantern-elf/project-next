@@ -1,8 +1,8 @@
 [gd_scene format=4 uid="uid://bcf0s8me6jwje"]
 
 [ext_resource type="TileSet" uid="uid://cityc17xubwb3" path="res://Assets/Tilesets/tile_set.tres" id="1_slpi0"]
-[ext_resource type="PackedScene" uid="uid://c6s31ag0fmwlw" path="res://Scenes/Character/player.tscn" id="2_vput8"]
-[ext_resource type="PackedScene" uid="uid://cwfl8qpg2fqwa" path="res://Scenes/Character/dummy.tscn" id="3_grga3"]
+[ext_resource type="PackedScene" uid="uid://c6s31ag0fmwlw" path="res://Scenes/Characters/player.tscn" id="2_vput8"]
+[ext_resource type="PackedScene" uid="uid://cwfl8qpg2fqwa" path="res://Scenes/Characters/dummy.tscn" id="3_grga3"]
 
 [node name="AreaTest" type="Node2D" unique_id=93933606]
 y_sort_enabled = true
@@ -45,7 +45,7 @@ tile_set = ExtResource("1_slpi0")
 [node name="Player" parent="." unique_id=1613720736 instance=ExtResource("2_vput8")]
 
 [node name="Camera2D" type="Camera2D" parent="Player" unique_id=888728306]
-zoom = Vector2(1.4, 1.4)
+zoom = Vector2(1.5, 1.5)
 process_callback = 0
 limit_smoothed = true
 position_smoothing_enabled = true

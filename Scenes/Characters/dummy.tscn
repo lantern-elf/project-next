@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cwfl8qpg2fqwa"]
 
-[ext_resource type="Texture2D" uid="uid://bv2li7iu83jgc" path="res://Assets/Entity/dummy.png" id="1_7w4d5"]
-[ext_resource type="Script" uid="uid://d0m1p8iypo86o" path="res://Scripts/Entity/Dummy/dummy.gd" id="1_kpirl"]
+[ext_resource type="Texture2D" uid="uid://bv2li7iu83jgc" path="res://Assets/Characters/dummy/dummy.png" id="1_7w4d5"]
+[ext_resource type="Script" uid="uid://d0m1p8iypo86o" path="res://Scripts/Components/dummy/dummy.gd" id="1_an3h7"]
 [ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_8dru5"]
 [ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/health_component.gd" id="3_jgjjh"]
 [ext_resource type="Script" uid="uid://bbjqboc0c7kua" path="res://Scripts/Components/hitbox_component.gd" id="4_cpape"]
@@ -21,7 +21,7 @@ size = Vector2(10, 18)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=239896592 node_paths=PackedStringArray("health_component", "hitbox_component", "velocity_component")]
 motion_mode = 1
-script = ExtResource("1_kpirl")
+script = ExtResource("1_an3h7")
 health_component = NodePath("HealthComponent")
 hitbox_component = NodePath("HitboxComponent")
 velocity_component = NodePath("VelocityComponent")

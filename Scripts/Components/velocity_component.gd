@@ -55,8 +55,8 @@ func knockback(power: float, source: Vector2, duration: float = .1) -> void:
 	var knockback_direction = (body.global_position - source).normalized() 
 	body.velocity = knockback_direction * power
 	await get_tree().create_timer(duration).timeout
-	knockback_finished.emit()
 	stop_move()
+	knockback_finished.emit()
 	
 func stop_move():
 	body.velocity = Vector2.ZERO

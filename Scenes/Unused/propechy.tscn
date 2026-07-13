@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://4wjixpo6joj1"]
 
-[ext_resource type="Shader" uid="uid://brahm3e5673d2" path="res://sssss.gdshader" id="1_dbaxd"]
-[ext_resource type="Texture2D" uid="uid://dh0j0ffvtca6t" path="res://Assets/Unknown/my_propechy.png" id="2_2xtvo"]
-[ext_resource type="Texture2D" uid="uid://c1phupaptxeyq" path="res://Assets/Unknown/depth-blue.png" id="2_s5w7k"]
+[ext_resource type="Shader" uid="uid://brahm3e5673d2" path="res://Shaders/unused/sssss.gdshader" id="1_dbaxd"]
+[ext_resource type="Texture2D" uid="uid://dh0j0ffvtca6t" path="res://Assets/Unused/my_propechy.png" id="2_2xtvo"]
+[ext_resource type="Texture2D" uid="uid://c1phupaptxeyq" path="res://Assets/Unused/depth-blue.png" id="2_s5w7k"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_2xtvo"]
 shader = ExtResource("1_dbaxd")

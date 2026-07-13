@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dtfps8qf1x1qu" path="res://Scripts/Components/player/player.gd" id="1_euf1r"]
 [ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_t23lb"]
-[ext_resource type="Texture2D" uid="uid://denj8o6tubo3k" path="res://Assets/Characters/Player/player.png" id="2_yg3nc"]
+[ext_resource type="Texture2D" uid="uid://denj8o6tubo3k" path="res://Assets/Characters/player/player.png" id="2_yg3nc"]
 [ext_resource type="Script" uid="uid://d2wdhnd1xm5g8" path="res://Scripts/Components/animation_player.gd" id="5_gbr73"]
 [ext_resource type="Script" uid="uid://b000defd3f8oe" path="res://Scripts/Components/state_machine.gd" id="6_ls1a5"]
 [ext_resource type="Script" uid="uid://bwpids7ole6x3" path="res://Scripts/Components/player/player_idle.gd" id="7_qacmv"]
@@ -571,6 +571,7 @@ body = NodePath("../..")
 body_sprite = NodePath("../Body")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=728868526]
+visible = false
 position = Vector2(0, 12)
 shape = SubResource("CapsuleShape2D_4jgyf")
 
@@ -650,6 +651,7 @@ state_machine = NodePath("../StateMachine")
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Hitable", "Player", "player"]]
+visible = false
 script = ExtResource("11_s7hvb")
 body = NodePath("..")
 health_component = NodePath("../HealthComponent")
