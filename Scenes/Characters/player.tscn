@@ -8,13 +8,14 @@
 [ext_resource type="Script" uid="uid://bwpids7ole6x3" path="res://Scripts/Components/player/player_idle.gd" id="7_qacmv"]
 [ext_resource type="Script" uid="uid://i2lhg6al5hwu" path="res://Scripts/Components/player/player_dash.gd" id="8_l12si"]
 [ext_resource type="Script" uid="uid://d83c3nlxbn4e" path="res://Scripts/Components/player/player_move.gd" id="8_n6ksf"]
+[ext_resource type="Script" uid="uid://b3wkdrr28q7x3" path="res://Scripts/Components/player/player_block.gd" id="9_dxpk4"]
 [ext_resource type="Script" uid="uid://b5hg3o5jwmbmj" path="res://Scripts/Components/health_component.gd" id="10_17ttd"]
 [ext_resource type="Script" uid="uid://dia5y2pprj1ku" path="res://Scripts/Components/player/input_component.gd" id="10_euf1r"]
 [ext_resource type="Script" uid="uid://ctra62md4cxsw" path="res://Scripts/Components/player/player_attack.gd" id="10_usyan"]
 [ext_resource type="Script" uid="uid://b0smyxfkp28gn" path="res://Scripts/Components/player/player_hurt.gd" id="10_v0bjn"]
 [ext_resource type="Script" uid="uid://132rvkjkmayo" path="res://Scripts/Components/player/player_velocity.gd" id="11_euf1r"]
 [ext_resource type="Script" uid="uid://bbjqboc0c7kua" path="res://Scripts/Components/hitbox_component.gd" id="11_s7hvb"]
-[ext_resource type="Script" uid="uid://cdhu5osdubd83" path="res://Scripts/Components/damage_component.gd" id="12_hv1gp"]
+[ext_resource type="Script" uid="uid://cdhu5osdubd83" path="res://Scripts/Components/attack_component.gd" id="12_hv1gp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_euf1r"]
 
@@ -609,6 +610,17 @@ animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
 health_component = NodePath("../../HealthComponent")
+is_uninterruptible = true
+metadata/_custom_type_script = "uid://bm2f3j8do6unm"
+
+[node name="Block" type="Node" parent="StateMachine" unique_id=1939837002 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
+script = ExtResource("9_dxpk4")
+body = NodePath("../..")
+state_machine = NodePath("..")
+animation_player = NodePath("../../Sprites/AnimationPlayer")
+velocity_component = NodePath("../../VelocityComponent")
+input = NodePath("../../InputComponent")
+health_component = NodePath("../../HealthComponent")
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
 [node name="Dash" type="Node" parent="StateMachine" unique_id=1377635766 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
@@ -619,6 +631,7 @@ animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
 health_component = NodePath("../../HealthComponent")
+is_uninterruptible = true
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
 [node name="Hurt" type="Node" parent="StateMachine" unique_id=546327445 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]
@@ -629,6 +642,7 @@ animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
 health_component = NodePath("../../HealthComponent")
+is_uninterruptible = true
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
 [node name="InputComponent" type="Node" parent="." unique_id=817755793]

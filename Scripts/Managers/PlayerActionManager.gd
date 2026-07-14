@@ -1,8 +1,9 @@
 extends Node
 
-var attack_state := 0
-var can_attack := true
-var can_dash:= true
+var attack_state: = 0
+var can_attack: = true
+var can_dash: = true
+var can_block: = true
 
 func lock_attack(duration: float) -> void:
 	can_attack = false
@@ -16,4 +17,5 @@ func lock_dash(duration: float) -> void:
 	can_dash = false
 	await get_tree().create_timer(duration).timeout
 	can_dash = true
-	
+
+#func lock_block()

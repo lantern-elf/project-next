@@ -1,4 +1,5 @@
 extends Area2D
+class_name AttackComponent
 
 """
 An (Area2D) component attached to an Player's weapon or attack.

@@ -29,3 +29,6 @@ func attack() -> bool:
 
 func dash() -> bool:
 	return Input.is_action_just_pressed("dash")
+
+func block() -> bool:
+	return Input.is_action_pressed("block")

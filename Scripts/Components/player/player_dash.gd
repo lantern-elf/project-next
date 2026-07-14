@@ -4,9 +4,6 @@ const DASH_TIME := 0.12
 
 var timer := 0.0
 
-func _ready():
-	is_uninterruptible = true
-
 func enter():
 	timer = DASH_TIME
 	velocity_component.dash(input.get_input_direction())

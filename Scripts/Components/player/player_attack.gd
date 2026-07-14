@@ -2,8 +2,8 @@ extends State
 
 var anim_state
 
-func _ready():
-	is_uninterruptible = true
+#func _ready():
+	#is_uninterruptible = true
 
 func enter():
 	PlayerActionManager.attack_state += 1

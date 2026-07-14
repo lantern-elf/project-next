@@ -34,7 +34,12 @@ func _process(delta: float) -> void:
 		if no_attack_time >= attack_RESET_DELAY:
 			PlayerActionManager.reset_attack_state()
 			
+	
 	if input_component.dash():
 		if PlayerActionManager.can_dash and not locked:
 			PlayerActionManager.lock_dash(0.5)
 			state_machine.current_state.Transitioned.emit(state_machine.current_state, "Dash")
+	
+	if input_component.block(): 
+		if PlayerActionManager.can_block and not locked and state_machine.current_state.name != "Block":
+			state_machine.current_state.Transitioned.emit(state_machine.current_state, "Block")
