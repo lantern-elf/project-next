@@ -1,4 +1,13 @@
-class_name StateMachine extends Node
+extends Node
+class_name StateMachine
+
+"""
+A simple Finite State Machine (FSM) implementation for Godot.
+Any child node of this node that is of the "State" type will
+automatically be registered as a valid state.
+This state machine manages transitions between states (Idle,
+Move, Attack, etc.) based on the "Transitioned" signal from the active state. 
+"""
 
 @export var initial_state : State
 @export var current_state : State

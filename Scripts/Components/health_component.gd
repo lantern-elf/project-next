@@ -1,6 +1,12 @@
 extends Node
 class_name HealthComponent
 
+"""
+Component managing an entity's health (HP): handling damage intake,
+healing processes, flash effects upon taking hits, and the process 
+of death.
+"""
+
 @export var body: CharacterBody2D
 @export var body_sprite: Sprite2D
 @export var velocity_component: VelocityComponent

@@ -1,5 +1,13 @@
 class_name State extends Node
 
+"""
+Base class for all states in the State Machine pattern
+(e.g., Idle, Move, Attack, Dash, Hurt). Each derived state
+simply overrides the enter/update/physics_update/exit functions
+as needed and emits the Transitioned signal when it wants
+to switch to another state.
+"""
+
 @export var body: CharacterBody2D 
 @export var state_machine: StateMachine
 @export var animation_player: AnimationPlayer

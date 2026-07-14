@@ -1,5 +1,15 @@
 extends AnimationPlayer
 
+"""
+Automatically construct an animation name based on
+a combination of "action" and "direction," then play
+that animation if it exists.
+
+Example:
+play_animation("idle", "down") will attempt to play
+the animation named "idle_down".
+"""
+
 @export var body: CharacterBody2D
 @export var body_sprite: Sprite2D
 

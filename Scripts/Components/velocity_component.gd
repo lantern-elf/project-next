@@ -1,4 +1,12 @@
-class_name VelocityComponent extends Node
+extends Node
+class_name VelocityComponent 
+
+"""
+Base class for a component that manages an entity's movement:
+speed, current facing direction, and knockback effects.
+The velocity components for both the player and the dummy
+extend this class.
+"""
 
 @export var speed: float = 100.00
 @export var body: CharacterBody2D

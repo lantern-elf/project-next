@@ -1,5 +1,13 @@
 extends CharacterBody2D
 
+"""
+Main player character script. It reads input from the
+InputComponent and determines when the player can transition to
+the "Attack", "Dash", or other states, taking into account the cooldown
+status from the PlayerActionManager and whether the current
+state is "uninterruptible" (e.g., while attacking or dashing).
+"""
+
 @export var velocity_component: VelocityComponent 
 @export var health_component: HealthComponent
 @export var hitbox_component: HitboxComponent 
