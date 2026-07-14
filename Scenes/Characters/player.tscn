@@ -15,7 +15,8 @@
 [ext_resource type="Script" uid="uid://b0smyxfkp28gn" path="res://Scripts/Components/player/player_hurt.gd" id="10_v0bjn"]
 [ext_resource type="Script" uid="uid://132rvkjkmayo" path="res://Scripts/Components/player/player_velocity.gd" id="11_euf1r"]
 [ext_resource type="Script" uid="uid://bbjqboc0c7kua" path="res://Scripts/Components/hitbox_component.gd" id="11_s7hvb"]
-[ext_resource type="Script" uid="uid://cdhu5osdubd83" path="res://Scripts/Components/attack_component.gd" id="12_hv1gp"]
+[ext_resource type="Script" uid="uid://dhou7sop58pm3" path="res://Scripts/Components/player/player_attack_area.gd" id="16_dxpk4"]
+[ext_resource type="Script" uid="uid://bp8f7rkr8dul1" path="res://Scripts/Components/block_component.gd" id="17_15c3i"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_euf1r"]
 
@@ -42,7 +43,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -54,7 +55,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -82,7 +83,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -94,7 +95,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -122,7 +123,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -134,7 +135,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -162,7 +163,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -174,7 +175,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -202,7 +203,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -214,7 +215,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -242,7 +243,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -254,7 +255,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -282,7 +283,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -294,7 +295,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -322,7 +323,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -334,7 +335,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -362,7 +363,7 @@ tracks/0/keys = {
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("../SwordArea/CollisionShape2D:position")
+tracks/1/path = NodePath("../AttackComponent/CollisionShape2D:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -374,7 +375,7 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("../SwordArea/CollisionShape2D:disabled")
+tracks/2/path = NodePath("../AttackComponent/CollisionShape2D:disabled")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
@@ -679,14 +680,21 @@ shape = SubResource("RectangleShape2D_hv1gp")
 debug_color = Color(0, 1, 0.13335153, 0.16100001)
 metadata/_edit_lock_ = true
 
-[node name="SwordArea" type="Area2D" parent="." unique_id=1345265775 node_paths=PackedStringArray("body")]
-script = ExtResource("12_hv1gp")
+[node name="AttackComponent" type="Area2D" parent="." unique_id=1953785306 node_paths=PackedStringArray("body")]
+script = ExtResource("16_dxpk4")
 body = NodePath("..")
+metadata/_custom_type_script = "uid://cdhu5osdubd83"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SwordArea" unique_id=1959507200]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent" unique_id=1959507200]
 position = Vector2(0, 21)
 shape = SubResource("RectangleShape2D_bhunq")
 disabled = true
 debug_color = Color(0.68359375, 0.26435852, 0.26435852, 0.41960785)
 
-[connection signal="area_entered" from="SwordArea" to="SwordArea" method="_on_area_entered"]
+[node name="BlockComponent" type="Area2D" parent="." unique_id=203393047]
+script = ExtResource("17_15c3i")
+metadata/_custom_type_script = "uid://bp8f7rkr8dul1"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BlockComponent" unique_id=1471499465]
+
+[connection signal="area_entered" from="AttackComponent" to="AttackComponent" method="_on_area_entered"]
