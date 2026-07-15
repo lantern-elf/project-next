@@ -19,7 +19,7 @@ config/description="Action Adventure Zelda-like game"
 config/version="0.1"
 run/main_scene="uid://bcf0s8me6jwje"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/icon="uid://cwijxu6bvlrdb"
+config/icon="uid://bvexqlfhroabu"
 
 [aseprite_importers]
 

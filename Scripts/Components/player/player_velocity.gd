@@ -40,3 +40,7 @@ func dash(direction: Vector2):
 	await get_tree().create_timer(0.1, true, false, true).timeout
 	body.velocity = Vector2.ZERO
 	is_dashing = false
+
+func bounce(source: Vector2):
+	body.velocity = ((body.global_position - source).normalized() * 100)
+	pass

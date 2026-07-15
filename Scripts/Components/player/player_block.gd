@@ -1,24 +1,31 @@
 extends State
 
-var blocking_direction: Vector2
-var attacker_position: Vector2 = Vector2.ZERO
-var dot: float
+@export var block_component: BlockComponent
 
 func enter():
-	blocking_direction = velocity_component.get_direction_vector()
-	if health_component.last_knockback_source:
-		attacker_position = health_component.last_knockback_source
-	dot = blocking_direction.dot(attacker_position)
+	block_component.collider.disabled = false
+	print("block")
 
 func update(_delta: float):
-	if dot > .5:
-		print("blocked")
+	var dir =  velocity_component.current_direction
+	var act1 = "block"
+	var act2 = ""
+	if input.get_input_direction() == Vector2.ZERO:
+		act2 = "idle"
+	else :
+		act2 = "move"
+		
+	var act = act2 + act1
 	
-	if not Input.is_action_pressed("block"):
-		Transitioned.emit(self, "Idle")
+	animation_player.play_animation(act, dir)
+	if not input.block():
+		Transitioned.emit(self, "idle")
+	pass
 
 func physics_update(_delta: float):
 	velocity_component.move(input.get_input_direction())
 
 func exit():
-	pass
+	block_component.collider.disabled = true
+	print("not block")
+	
