@@ -1,92 +1,88 @@
-# project-next — Dokumentasi Arsitektur
+# project-next — Architecture Documentation
 
-> Action-Adventure Zelda-like game dibangun di **Godot 4.7** (GDScript, renderer GL Compatibility).
-
----
-
-## 1. Ringkasan Proyek
-
-| Item                      | Nilai                                  |
-| ------------------------- | -------------------------------------- |
-| Nama proyek               | `project-next`                         |
-| Deskripsi (project.godot) | "Action Adventure Zelda-like game"     |
-| Engine                    | Godot 4.7, renderer `gl_compatibility` |
-| Bahasa                    | GDScript, GDShader                     |
-| Resolusi viewport         | 640×360, stretch mode `canvas_items`   |
-| Window                    | Borderless                             |
-| Main scene                | `Scenes/area_test.tscn`                |
-
-Proyek ini adalah game top-down 2D bergaya Zelda klasik: pemain bergerak 4-arah, menyerang dengan pedang, bisa dash, punya health, dan berinteraksi dengan musuh/dummy serta hazard (spike). Arsitekturnya memakai dua pola utama: **Component Pattern** dan **Finite State Machine (FSM)**, ditambah satu **Autoload Singleton** untuk mengunci aksi pemain secara global.
+> Action-Adventure Zelda-like game built in **Godot 4.7** (GDScript, GL Compatibility renderer).
+> This document was generated from a full analysis of the `lantern-elf/project-next` repository source code.
 
 ---
 
-## 2. Project Settings Penting
+## 1. Project Overview
+
+| Item | Value |
+|---|---|
+| Project name | `project-next` |
+| Description (project.godot) | "Action Adventure Zelda-like game" |
+| Engine | Godot 4.7, `gl_compatibility` renderer |
+| Language | GDScript, GDShader |
+| Viewport resolution | 640×360, stretch mode `canvas_items` |
+| Window | Borderless |
+| Main scene | `Scenes/area_test.tscn` |
+
+This project is a classic Zelda-style top-down 2D game: the player moves in 4 directions, attacks with a sword, can dash, has health, and interacts with enemies/dummies and hazards (spikes). The architecture relies on two main patterns: the **Component Pattern** and a **Finite State Machine (FSM)**, plus one **Autoload Singleton** that globally gates the player's actions.
+
+---
+
+## 2. Key Project Settings
 
 **Autoload (Singleton)**
-
 ```
 PlayerActionManager → res://Scripts/Managers/PlayerActionManager.gd
 ```
+Accessed globally by the name `PlayerActionManager` from any script without needing an explicit reference.
 
-Diakses secara global lewat nama `PlayerActionManager` dari script manapun tanpa perlu reference eksplisit.
-
-**Input Map (custom actions, di luar `ui_*` bawaan)**
+**Input Map (custom actions, beyond the built-in `ui_*`)**
 | Action | Keyboard | Gamepad |
 |---|---|---|
 | `attack` | X | Joypad button 2 |
 | `dash` | Shift (physical keycode 4194326) | Joypad button 0 |
 
-Gerakan (`ui_left/right/up/down`) memakai input action bawaan Godot.
+Movement (`ui_left/right/up/down`) uses Godot's built-in input actions.
 
 **Physics Layers**
-
 ```
 Layer 1 = "Player"
 Layer 2 = "Props"
 ```
 
 **Global Groups**
-
 ```
 Hitable, Player
 ```
+Used to filter which nodes can receive damage and to distinguish the player's hitbox from enemy hitboxes.
 
-Dipakai untuk menyaring node mana yang boleh menerima damage dan membedakan hitbox milik player vs musuh.
-
-**Rendering**: `gl_compatibility` (baik desktop maupun mobile) — pilihan umum untuk pixel-art 2D agar kompatibel di banyak device.
+**Rendering**: `gl_compatibility` (both desktop and mobile) — a common choice for 2D pixel art to keep the game compatible across many devices.
 
 ---
 
-## 3. Struktur Folder
+## 3. Folder Structure
 
 ```
 project-next/
 ├── project.godot
 ├── icon.svg / icon.png
-├── sssss.gdshader              # shader efek "echo/scrolling" (lihat §9)
+├── sssss.gdshader              # "echo/scrolling" effect shader (see §9)
 ├── Assets/
-│   ├── Characters/Player/      # spritesheet player
-│   ├── Entity/                 # spritesheet dummy/musuh
+│   ├── Characters/Player/      # player spritesheet
+│   ├── Entity/                 # dummy/enemy spritesheet
 │   ├── Tilesets/                # tileset + tile_set.tres
-│   └── UIs/                    # aset tombol UI
+│   └── UIs/                    # UI button assets
 ├── Scenes/
-│   ├── area_test.tscn          # ⭐ MAIN SCENE — level test dengan tilemap
-│   ├── propechy.tscn           # scene showcase shader "sssss"
+│   ├── area_test.tscn          # ⭐ MAIN SCENE — test level with tilemap
+│   ├── propechy.tscn           # showcase scene for the "sssss" shader
 │   ├── Character/
-│   │   ├── player.tscn         # scene pemain
-│   │   └── dummy.tscn          # scene target latihan/musuh dasar
+│   │   ├── player.tscn         # player scene
+│   │   └── dummy.tscn          # basic training dummy/enemy target
 │   ├── Obstacles/
 │   │   └── spikes.tscn         # hazard area
 │   └── UI/
-│       └── button.tscn         # tombol UI generik
+│       └── button.tscn         # generic UI button
 ├── Scripts/
-│   ├── Components/             # komponen reusable (composition pattern)
+│   ├── Components/             # reusable components (composition pattern)
 │   │   ├── animation_player.gd
 │   │   ├── damage_component.gd
-│   │   ├── heatlh_component.gd     # (typo: "heatlh" bukan "health")
+│   │   ├── heatlh_component.gd     # (typo: "heatlh" instead of "health")
 │   │   ├── hitbox_component.gd
 │   │   ├── state.gd
-│   │   ├── state_mechine.gd        # (typo: "mechine" bukan "machine")
+│   │   ├── state_mechine.gd        # (typo: "mechine" instead of "machine")
 │   │   ├── velocity_component.gd
 │   │   ├── dummy/
 │   │   │   └── dummy_velocity.gd
@@ -105,33 +101,31 @@ project-next/
 │   └── Tiles/
 │       └── hazard_area.gd
 ├── Shaders/
-│   └── flash_hit.gdshader      # efek "kena hit" (flash putih)
+│   └── flash_hit.gdshader      # "on hit" effect (white flash)
 └── addons/
-    └── discord-rpc-gd/          # addon pihak ketiga — Discord Rich Presence
+    └── discord-rpc-gd/          # third-party addon — Discord Rich Presence
 ```
 
 ---
 
-## 4. Pola Arsitektur
+## 4. Architecture Patterns
 
 ### 4.1 Component Pattern
-
-Setiap entity (`Player`, `Dummy`) adalah `CharacterBody2D` yang **tidak** menaruh semua logic di satu script. Sebaliknya, logic dipecah jadi node anak yang masing-masing punya tanggung jawab tunggal (single responsibility), lalu di-_wire_ lewat `@export` NodePath di editor:
+Every entity (`Player`, `Dummy`) is a `CharacterBody2D` that does **not** hold all its logic in one script. Instead, logic is split into child nodes, each with a single responsibility, wired together via `@export` NodePaths in the editor:
 
 ```
-CharacterBody2D  (mis. Player / Dummy)
+CharacterBody2D  (e.g. Player / Dummy)
  ├── HealthComponent      → HP, damage, heal, flash-hit
- ├── HitboxComponent       → Area2D penerima serangan
- ├── VelocityComponent     → gerakan & arah (base class)
- ├── InputComponent        → (khusus Player) baca input
- └── StateMachine           → (khusus Player) FSM state
+ ├── HitboxComponent       → Area2D that receives attacks
+ ├── VelocityComponent     → movement & direction (base class)
+ ├── InputComponent        → (Player only) reads input
+ └── StateMachine           → (Player only) FSM state
 ```
 
-Keuntungan pola ini: `Dummy` dan `Player` bisa berbagi `HealthComponent` dan `HitboxComponent` yang identik, sementara `VelocityComponent` di-_extend_ berbeda (`player_velocity.gd` vs `dummy_velocity.gd`) sesuai kebutuhan masing-masing entity.
+The benefit of this pattern: `Dummy` and `Player` can share an identical `HealthComponent` and `HitboxComponent`, while `VelocityComponent` is *extended* differently (`player_velocity.gd` vs `dummy_velocity.gd`) to fit each entity's needs.
 
 ### 4.2 Finite State Machine (FSM)
-
-Khusus Player, pergerakan/animasi diatur lewat FSM generik (`state_mechine.gd` + `state.gd`) yang state konkretnya adalah node anak bertipe `State`:
+For the Player specifically, movement/animation is driven by a generic FSM (`state_mechine.gd` + `state.gd`) whose concrete states are child nodes of type `State`:
 
 ```
 StateMachine
@@ -141,319 +135,282 @@ StateMachine
  └── Dash    (player_dash.gd)
 ```
 
-Transisi terjadi lewat signal `Transitioned(state, new_state_name)` yang di-emit oleh state aktif, ditangkap oleh `StateMachine.on_child_transition()`, yang mencari state baru di dictionary `states` (key = nama node huruf kecil) lalu memanggil `exit()` pada state lama dan `enter()` pada state baru.
+Transitions happen via the `Transitioned(state, new_state_name)` signal, emitted by the active state and caught by `StateMachine.on_child_transition()`, which looks up the new state in the `states` dictionary (keyed by lowercase node name) and calls `exit()` on the old state followed by `enter()` on the new one.
 
 ### 4.3 Autoload Singleton — Global Action Lock
-
-`PlayerActionManager` adalah satu-satunya singleton di proyek ini. Fungsinya sebagai **cooldown/lock gate** supaya input attack & dash tidak bisa di-spam melebihi durasi animasi, dan sebagai penyimpan `attack_state` (combo counter 1↔4) lintas-frame tanpa harus disimpan di state Attack itu sendiri (karena state di-_enter/exit_ ulang tiap kali attack).
+`PlayerActionManager` is the project's only singleton. It acts as a **cooldown/lock gate** so attack & dash inputs can't be spammed faster than their animations allow, and it stores `attack_state` (the 1–4 combo counter) across frames without needing to persist it inside the Attack state itself (since states are re-entered/exited every time an attack happens).
 
 ---
 
-## 5. Referensi Class & Script
+## 5. Class & Script Reference
 
 ### 5.1 `Scripts/Components/state.gd`
-
 ```gdscript
 class_name State extends Node
 ```
+Abstract base class for all FSM states.
 
-Base class abstrak untuk semua state FSM.
+| Export var | Type | Description |
+|---|---|---|
+| `body` | CharacterBody2D | reference to the owning entity |
+| `state_machine` | StateMachine | reference to the parent FSM |
+| `animation_player` | AnimationPlayer | for triggering animations |
+| `velocity_component` | VelocityComponent | for movement |
+| `input` | InputComponent | optional, only set if the state needs input |
 
-| Export var           | Tipe              | Keterangan                                   |
-| -------------------- | ----------------- | -------------------------------------------- |
-| `body`               | CharacterBody2D   | reference ke entity pemilik                  |
-| `state_machine`      | StateMachine      | reference ke FSM induk                       |
-| `animation_player`   | AnimationPlayer   | untuk memicu animasi                         |
-| `velocity_component` | VelocityComponent | untuk gerak                                  |
-| `input`              | InputComponent    | opsional, hanya diisi jika state butuh input |
+| Signal | Description |
+|---|---|
+| `Transitioned(state, new_state_name)` | Emitted to request a state change |
 
-| Signal                                | Keterangan                       |
-| ------------------------------------- | -------------------------------- |
-| `Transitioned(state, new_state_name)` | Di-emit untuk minta pindah state |
-
-| Method (virtual, override di subclass) | Dipanggil dari                                      |
-| -------------------------------------- | --------------------------------------------------- |
-| `enter()`                              | `StateMachine` saat state jadi aktif                |
-| `update(delta)`                        | `StateMachine._process()` tiap frame                |
-| `physics_update(delta)`                | `StateMachine._physics_process()` tiap physics tick |
-| `exit()`                               | `StateMachine` saat state ditinggalkan              |
+| Method (virtual, overridden in subclasses) | Called from |
+|---|---|
+| `enter()` | `StateMachine` when the state becomes active |
+| `update(delta)` | `StateMachine._process()` every frame |
+| `physics_update(delta)` | `StateMachine._physics_process()` every physics tick |
+| `exit()` | `StateMachine` when the state is left |
 
 ### 5.2 `Scripts/Components/state_mechine.gd`
-
 ```gdscript
 class_name StateMachine extends Node
 ```
+| Export var | Description |
+|---|---|
+| `initial_state: State` | the first state on `_ready()` |
+| `current_state: State` | the currently active state |
 
-| Export var             | Keterangan                    |
-| ---------------------- | ----------------------------- |
-| `initial_state: State` | state pertama saat `_ready()` |
-| `current_state: State` | state aktif saat ini          |
+| Method | Description |
+|---|---|
+| `_ready()` | Collects all child nodes of type `State` into the `states` dictionary (key = `name.to_lower()`), connects each one's `Transitioned` signal to `on_child_transition`, then calls `initial_state.enter()` |
+| `_process(delta)` | Forwards to `current_state.update(delta)` |
+| `_physics_process(delta)` | Forwards to `current_state.physics_update(delta)` |
+| `on_child_transition(state, new_state_name)` | Transition handler: ignores the call if `state` isn't `current_state` (prevents a stale state from causing a race condition); looks up the new state in the dictionary; calls `exit()` on the old one → `enter()` on the new one |
 
-| Method                                       | Deskripsi                                                                                                                                                                                                  |
-| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `_ready()`                                   | Mengumpulkan semua node anak bertipe `State` ke dictionary `states` (key = `name.to_lower()`), connect signal `Transitioned` masing-masing ke `on_child_transition`, lalu jalankan `initial_state.enter()` |
-| `_process(delta)`                            | Forward ke `current_state.update(delta)`                                                                                                                                                                   |
-| `_physics_process(delta)`                    | Forward ke `current_state.physics_update(delta)`                                                                                                                                                           |
-| `on_child_transition(state, new_state_name)` | Handler transisi: abaikan jika `state` bukan `current_state` (mencegah race condition dari state basi); cari state baru di dictionary; panggil `exit()` lama → `enter()` baru                              |
-
-**Catatan desain**: karena lookup pakai `to_lower()` pada nama node, nama node di scene tree (`Idle`, `Move`, `Attack`, `Dash`) **harus match** dengan string yang di-emit di `Transitioned.emit(self, "Attack")` dkk (case-insensitive tapi ejaan harus persis).
+**Design note**: because the lookup uses `to_lower()` on the node name, the node names in the scene tree (`Idle`, `Move`, `Attack`, `Dash`) **must match** the strings emitted in `Transitioned.emit(self, "Attack")` etc. (case-insensitive, but spelling must be exact).
 
 ### 5.3 `Scripts/Components/velocity_component.gd`
-
 ```gdscript
 class_name VelocityComponent extends Node
 ```
+Base class for movement & sprite-direction resolution (used by both Player and Dummy, each via its own subclass).
 
-Base class gerakan & penentuan arah sprite (dipakai baik oleh Player maupun Dummy, masing-masing lewat subclass).
+| Export var | Default | Description |
+|---|---|---|
+| `speed` | 100.0 | base movement speed |
+| `body` | — | the owning CharacterBody2D |
 
-| Export var | Default | Keterangan              |
-| ---------- | ------- | ----------------------- |
-| `speed`    | 100.0   | kecepatan dasar         |
-| `body`     | —       | CharacterBody2D pemilik |
+| Internal var | Description |
+|---|---|
+| `current_direction` / `last_direction` | string: `"down" \| "up" \| "left" \| "right"` — used to pick the animation name |
 
-| Var internal                           | Keterangan                                                                         |
-| -------------------------------------- | ---------------------------------------------------------------------------------- |
-| `current_direction` / `last_direction` | string: `"down" \| "up" \| "left" \| "right"` — dipakai untuk memilih nama animasi |
+| Method | Description |
+|---|---|
+| `get_direction_name(input_vector, previous_direction)` | Converts a `Vector2` input into a direction string, preferring to keep the previous direction when it's still valid, falling back to priority order `down > up > left > right` |
+| `get_direction_vector()` | The inverse of the above — direction string → `Vector2` (`down/up/left/right`) |
+| `knockback(power, origin)` | Pushes the body away from `origin` by `power`, then stops after 0.1s |
+| `stop_move()` | `velocity = Vector2.ZERO` |
 
-| Method                                                 | Deskripsi                                                                                                                                                       |
-| ------------------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `get_direction_name(input_vector, previous_direction)` | Konversi `Vector2` input jadi nama arah string, dengan prioritas mempertahankan arah sebelumnya jika masih valid, fallback prioritas `down > up > left > right` |
-| `get_direction_vector()`                               | Kebalikan dari atas — string arah → `Vector2` (`down/up/left/right`)                                                                                            |
-| `knockback(power, origin)`                             | Dorong body menjauhi `origin` sebesar `power`, lalu stop setelah 0.1s                                                                                           |
-| `stop_move()`                                          | `velocity = Vector2.ZERO`                                                                                                                                       |
-
-⚠️ **Bug kecil**: di `get_direction_vector()`, baris `print(directions_mapping)` ditulis **setelah** `return`, jadi tidak pernah dieksekusi (sudah ditandai `@warning_ignore("unreachable_code")` oleh penulis — sepertinya sengaja dibiarkan sebagai dead code debug).
+⚠️ **Minor quirk**: in `get_direction_vector()`, the line `print(directions_mapping)` is placed **after** the `return`, so it never executes (already flagged with `@warning_ignore("unreachable_code")` by the author — appears to be intentionally left-over debug code).
 
 ### 5.4 `Scripts/Components/player/player_velocity.gd`
-
 ```gdscript
 extends VelocityComponent
 ```
+| Export var | Description |
+|---|---|
+| `input_component: InputComponent` | source of directional input |
 
-| Export var                        | Keterangan        |
-| --------------------------------- | ----------------- |
-| `input_component: InputComponent` | sumber arah input |
-
-| Method                          | Deskripsi                                                                                                                                                              |
-| ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `_physics_process(delta)`       | Update `current_direction` dari input, lalu `body.move_and_slide()`                                                                                                    |
-| `move(direction, _speed=speed)` | Set velocity langsung sebesar arah × speed (dipakai state **Move**)                                                                                                    |
-| `attack_move(direction)`        | Velocity burst 3× speed searah input (atau 0.5× speed searah hadap terakhir jika tidak ada input), auto-reset ke 0 setelah 0.1s — memberi "lunge" kecil saat menyerang |
-| `dash(direction)`               | Velocity burst 5× speed, auto-reset 0.1s — dipakai state **Dash**                                                                                                      |
+| Method | Description |
+|---|---|
+| `_physics_process(delta)` | Updates `current_direction` from input, then calls `body.move_and_slide()` |
+| `move(direction, _speed=speed)` | Sets velocity directly to direction × speed (used by the **Move** state) |
+| `attack_move(direction)` | A burst of velocity at 3× speed in the input direction (or 0.5× speed in the last-faced direction if there's no input), auto-resets to 0 after 0.1s — gives a small "lunge" while attacking |
+| `dash(direction)` | A burst of velocity at 5× speed, auto-resets after 0.1s — used by the **Dash** state |
 
 ### 5.5 `Scripts/Components/dummy/dummy_velocity.gd`
-
 ```gdscript
 extends VelocityComponent
 ```
-
-Versi minimalis untuk `Dummy`: `_physics_process()` hanya memanggil `body.move_and_slide()` tanpa logic input (karena Dummy statis / tidak dikontrol pemain). Fungsi `_ready()` masih placeholder kosong.
+A minimal version for `Dummy`: `_physics_process()` only calls `body.move_and_slide()` with no input logic (since the Dummy is static / not player-controlled). `_ready()` is still an empty placeholder.
 
 ### 5.6 `Scripts/Components/player/input_component.gd`
-
 ```gdscript
 class_name InputComponent extends Node
 ```
+| Signal | Description |
+|---|---|
+| `direction_changes` | Emitted whenever the input direction changes |
 
-| Signal              | Keterangan                           |
-| ------------------- | ------------------------------------ |
-| `direction_changes` | Di-emit tiap kali arah input berubah |
+| Var | Description |
+|---|---|
+| `last_direction`, `direction_changed` | direction-change tracking |
+| `attack_disabled` | manual lock flag (currently never set to true — the related `start_attack_cooldown` function is commented out) |
 
-| Var                                   | Keterangan                                                                                                |
-| ------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `last_direction`, `direction_changed` | tracking perubahan arah                                                                                   |
-| `attack_disabled`                     | flag manual lock (saat ini tidak pernah di-set true — fungsi `start_attack_cooldown` terkait dikomentari) |
-
-| Method                  | Deskripsi                                                                   |
-| ----------------------- | --------------------------------------------------------------------------- |
-| `get_input_direction()` | `Input.get_vector("ui_left","ui_right","ui_up","ui_down")`                  |
-| `attack()`              | `true` jika tombol `attack` baru ditekan **dan** `attack_disabled == false` |
-| `dash()`                | `true` jika tombol `dash` baru ditekan                                      |
+| Method | Description |
+|---|---|
+| `get_input_direction()` | `Input.get_vector("ui_left","ui_right","ui_up","ui_down")` |
+| `attack()` | `true` if the `attack` button was just pressed **and** `attack_disabled == false` |
+| `dash()` | `true` if the `dash` button was just pressed |
 
 ### 5.7 `Scripts/Components/player/player.gd`
-
 ```gdscript
 extends CharacterBody2D
 ```
+The main script on the Player's root node. It is **not** part of the FSM itself — it's the "glue" between `InputComponent`, `PlayerActionManager`, and `StateMachine`.
 
-Script utama node root Player. **Bukan** bagian dari FSM — ini "penghubung" antara `InputComponent`, `PlayerActionManager`, dan `StateMachine`.
+| Export var | Description |
+|---|---|
+| `velocity_component`, `health_component`, `hitbox_component`, `state_machine`, `animation_player`, `input_component` | wiring to all child components |
 
-| Export var                                                                                                           | Keterangan                    |
-| -------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| `velocity_component`, `health_component`, `hitbox_component`, `state_machine`, `animation_player`, `input_component` | wiring ke semua komponen anak |
+| Method | Description |
+|---|---|
+| `_process(delta)` | Core per-frame logic: |
 
-| Method            | Deskripsi              |
-| ----------------- | ---------------------- |
-| `_process(delta)` | Logic inti tiap frame: |
+`_process()` flow:
+1. If the attack button is pressed **and** `PlayerActionManager.can_attack`: lock attacks for 0.3s (`lock_attack`), then force the FSM into the **Attack** state via `Transitioned.emit(current_state, "Attack")` — note this is emitted directly from `player.gd`, not from the state itself.
+2. If the attack button is **not** pressed: accumulate `no_attack_time`; after 1 second of no attacking, call `PlayerActionManager.reset_attack_state()` (resets the combo counter to 0).
+3. If the dash button is pressed **and** `can_dash`: lock dash for 0.5s, force a transition to **Dash**.
 
-Alur `_process()`:
-
-1. Jika tombol attack ditekan **dan** `PlayerActionManager.can_attack`: kunci attack 0.3s (`lock_attack`), lalu paksa FSM pindah ke state **Attack** lewat `Transitioned.emit(current_state, "Attack")` — perhatikan ini emit langsung dari `player.gd`, bukan dari state itu sendiri.
-2. Jika tombol attack **tidak** ditekan: akumulasi `no_attack_time`; setelah 1 detik idle dari attack, panggil `PlayerActionManager.reset_attack_state()` (reset combo counter ke 0).
-3. Jika tombol dash ditekan **dan** `can_dash`: kunci dash 0.5s, paksa pindah ke state **Dash**.
-
-### 5.8 States Player
+### 5.8 Player States
 
 **`player_idle.gd`**
-
 - `enter()`: no-op
-- `update(delta)`: mainkan animasi `idle_<direction>`
-- `physics_update(delta)`: jika ada input arah → transisi ke **Move**
+- `update(delta)`: plays the `idle_<direction>` animation
+- `physics_update(delta)`: if there is directional input → transitions to **Move**
 
 **`player_move.gd`**
-
-- `update(delta)`: mainkan animasi `move_<direction>`
-- `physics_update(delta)`: panggil `velocity_component.move(input)`; jika input kosong → transisi ke **Idle**
+- `update(delta)`: plays the `move_<direction>` animation
+- `physics_update(delta)`: calls `velocity_component.move(input)`; if input is empty → transitions to **Idle**
 
 **`player_attack.gd`**
-
 - `enter()`:
-  1. Naikkan `PlayerActionManager.attack_state` (combo counter), wrap ke 1 jika > 4
-  2. `anim_state = 1` jika combo ganjil, `2` jika genap → menghasilkan animasi berselang-seling `attack_<dir>1` / `attack_<dir>2` (combo 2-hit per arah)
-  3. Mainkan animasi attack sesuai arah & anim_state
-  4. `await animation_finished` → otomatis transisi balik ke **Idle**
-- `update(delta)`: `velocity_component.attack_move(input)` — memberi lunge saat menyerang
+  1. Increments `PlayerActionManager.attack_state` (combo counter), wraps to 1 if it exceeds 4
+  2. `anim_state = 1` on odd combo, `2` on even combo → produces alternating `attack_<dir>1` / `attack_<dir>2` animations (a 2-hit combo per direction)
+  3. Plays the attack animation for the current direction & anim_state
+  4. `await animation_finished` → automatically transitions back to **Idle**
+- `update(delta)`: `velocity_component.attack_move(input)` — gives a lunge while attacking
 - `exit()`: `velocity_component.stop_move()`
 
 **`player_dash.gd`**
+- Constant `DASH_TIME = 0.12`
+- `enter()`: starts the timer, calls `velocity_component.dash(input)`
+- `physics_update(delta)`: counts the timer down; when it runs out → `stop_move()`, then transitions to **Move** (if there is still input) or **Idle**
 
-- Konstanta `DASH_TIME = 0.12`
-- `enter()`: mulai timer, panggil `velocity_component.dash(input)`
-- `physics_update(delta)`: hitung mundur timer; saat habis → `stop_move()`, lalu transisi ke **Move** (jika masih ada input) atau **Idle**
-
-**Diagram alur state**
-
+**State flow diagram**
 ```
-        input arah
+       directional input
 Idle ───────────────► Move
  ▲                      │
  │ no input              │ no input
  └──────────────────────┘
 
-Idle/Move ──(tombol attack, can_attack)──► Attack ──(animasi selesai)──► Idle
-Idle/Move ──(tombol dash, can_dash)──────► Dash   ──(timer habis)──────► Move / Idle
+Idle/Move ──(attack button, can_attack)──► Attack ──(animation finished)──► Idle
+Idle/Move ──(dash button, can_dash)──────► Dash   ──(timer expires)───────► Move / Idle
 ```
-
-(Transisi ke Attack/Dash dipicu dari `player.gd`, bukan dari state Idle/Move — lihat §5.7.)
+(Transitions into Attack/Dash are triggered from `player.gd`, not from the Idle/Move states themselves — see §5.7.)
 
 ### 5.9 `Scripts/Managers/PlayerActionManager.gd` (Autoload)
-
 ```gdscript
 extends Node
 ```
+| Var | Description |
+|---|---|
+| `attack_state: int` | attack combo counter (1–4, wraps) |
+| `can_attack: bool` | attack lock gate |
+| `can_dash: bool` | dash lock gate |
 
-| Var                 | Keterangan                         |
-| ------------------- | ---------------------------------- |
-| `attack_state: int` | combo counter serangan (1–4, wrap) |
-| `can_attack: bool`  | gate lock serangan                 |
-| `can_dash: bool`    | gate lock dash                     |
-
-| Method                  | Deskripsi                                                            |
-| ----------------------- | -------------------------------------------------------------------- |
-| `lock_attack(duration)` | `can_attack = false` → tunggu `duration` detik → `can_attack = true` |
-| `reset_attack_state()`  | `attack_state = 0` (reset combo)                                     |
-| `lock_dash(duration)`   | sama seperti lock_attack tapi untuk dash                             |
+| Method | Description |
+|---|---|
+| `lock_attack(duration)` | `can_attack = false` → wait `duration` seconds → `can_attack = true` |
+| `reset_attack_state()` | `attack_state = 0` (resets the combo) |
+| `lock_dash(duration)` | same as `lock_attack` but for dash |
 
 ### 5.10 `Scripts/Components/heatlh_component.gd`
-
 ```gdscript
 class_name HealthComponent extends Node
 ```
+| Export var | Default | Description |
+|---|---|---|
+| `body` | — | owning CharacterBody2D |
+| `body_sprite` | — | Sprite2D used for the flash effect |
+| `velocity_component` | — | for triggering knockback from outside (see `damage_component.gd`) |
+| `max_health`, `current_health` | 3.0 | HP (overridden to 100.0 for the Dummy in its scene) |
 
-| Export var                     | Default | Keterangan                                                      |
-| ------------------------------ | ------- | --------------------------------------------------------------- |
-| `body`                         | —       | CharacterBody2D pemilik                                         |
-| `body_sprite`                  | —       | Sprite2D untuk efek flash                                       |
-| `velocity_component`           | —       | untuk trigger knockback dari luar (lihat `damage_component.gd`) |
-| `max_health`, `current_health` | 3.0     | HP (Dummy override jadi 100.0 di scene)                         |
+| Signal | Description |
+|---|---|
+| `get_damage` | Emitted every time `take_damage()` is called (no explicit listener yet in the current code — available for a future HP bar UI, etc.) |
 
-| Signal       | Keterangan                                                                                                                  |
-| ------------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `get_damage` | Di-emit tiap kali `take_damage()` dipanggil (belum ada listener eksplisit di kode saat ini — tersedia untuk UI HP bar dsb.) |
-
-| Method                | Deskripsi                                                                                                   |
-| --------------------- | ----------------------------------------------------------------------------------------------------------- |
-| `take_damage(amount)` | Kurangi HP, emit `get_damage`, panggil `flash_hit()`, cek kematian                                          |
-| `heal(amount)`        | Tambah HP, clamp ke `max_health`                                                                            |
-| `die()`               | `body.queue_free()` — **tidak ada animasi kematian / drop item, langsung dihapus**                          |
-| `flash_hit()` (async) | Set shader param `hit_flash_on = true` selama 0.2 detik lalu balik `false` — efek kilat putih saat kena hit |
+| Method | Description |
+|---|---|
+| `take_damage(amount)` | Reduces HP, emits `get_damage`, calls `flash_hit()`, checks for death |
+| `heal(amount)` | Increases HP, clamped to `max_health` |
+| `die()` | `body.queue_free()` — **no death animation / item drop, the entity is simply removed** |
+| `flash_hit()` (async) | Sets the shader param `hit_flash_on = true` for 0.2 seconds then back to `false` — the white-flash-on-hit effect |
 
 ### 5.11 `Scripts/Components/hitbox_component.gd`
-
 ```gdscript
 class_name HitboxComponent extends Area2D
 ```
+Purely a data container (no methods of its own) — an `Area2D` marking "the part of the body that can receive damage". Assigned to the `Hitable` group in the scene (plus `Player`/`player` specifically for the Player), so it can be filtered by `damage_component.gd`.
 
-Hanya kontainer data (tidak ada method sendiri) — `Area2D` yang menandai "bagian tubuh yang bisa menerima damage". Diberi group `Hitable` (+ `Player`/`player` khusus punya Player) di scene, agar bisa disaring oleh `damage_component.gd`.
-
-| Export var                                       | Keterangan                        |
-| ------------------------------------------------ | --------------------------------- |
-| `body`, `health_component`, `velocity_component` | reference balik ke entity pemilik |
+| Export var | Description |
+|---|---|
+| `body`, `health_component`, `velocity_component` | back-references to the owning entity |
 
 ### 5.12 `Scripts/Components/damage_component.gd`
-
 ```gdscript
 extends Area2D
 ```
+This is the **weapon hitbox** (the `SwordArea` on the Player) — the opposite of `HitboxComponent` (which receives damage, this one deals damage).
 
-Ini adalah **hitbox senjata** (`SwordArea` di scene Player) — kebalikan dari `HitboxComponent` (yang menerima damage, ini yang memberi damage).
+| Export var | Default | Description |
+|---|---|---|
+| `body` | — | owner of the weapon (Player) |
+| `attack_damage` | 1.00 | damage per hit |
 
-| Export var      | Default | Keterangan                    |
-| --------------- | ------- | ----------------------------- |
-| `body`          | —       | body pemilik senjata (Player) |
-| `attack_damage` | 1.00    | damage per hit                |
-
-| Method                   | Deskripsi                                                                                                                                                                                                          |
-| ------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `_on_area_entered(area)` | Jika area yang bersentuhan adalah `HitboxComponent`, ada di group `Hitable`, **dan bukan** group `player` (mencegah self-damage) → panggil `take_damage()` pada target, lalu beri knockback 200 dari posisi `body` |
+| Method | Description |
+|---|---|
+| `_on_area_entered(area)` | If the overlapping area is a `HitboxComponent`, is in the `Hitable` group, **and is not** in the `player` group (to prevent self-damage) → calls `take_damage()` on the target, then applies 200 knockback from `body`'s position |
 
 ### 5.13 `Scripts/Components/animation_player.gd`
-
 ```gdscript
 extends AnimationPlayer
 ```
-
-| Method                                                   | Deskripsi                                                                                                                                                                                                    |
-| -------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `play_animation(action, direction, reverse_frame=false)` | Bentuk nama animasi `"<action>_<direction>"` (mis. `"move_down"`, `"attack_left1"`), cek `has_animation()`, mainkan (mundur jika `reverse_frame`), kembalikan nama animasi; kalau tidak ada → `push_warning` |
+| Method | Description |
+|---|---|
+| `play_animation(action, direction, reverse_frame=false)` | Builds the animation name `"<action>_<direction>"` (e.g. `"move_down"`, `"attack_left1"`), checks `has_animation()`, plays it (backwards if `reverse_frame`), and returns the animation name; if it doesn't exist → `push_warning` |
 
 ### 5.14 `Scripts/Entity/Dummy/dummy.gd`
-
 ```gdscript
 class_name Entity extends CharacterBody2D
 ```
-
-Script root untuk `Dummy` — sangat minimal, hanya kontainer `@export` untuk wiring komponen (`health_component`, `hitbox_component`, `velocity_component`). Tidak ada FSM, tidak ada AI — target statis untuk testing combat.
+The root script for `Dummy` — very minimal, just an `@export` container for wiring components (`health_component`, `hitbox_component`, `velocity_component`). No FSM, no AI — a static target used for testing combat.
 
 ### 5.15 `Scripts/Tiles/hazard_area.gd`
-
 ```gdscript
 class_name hazard_area extends Area2D
 ```
+> Note: the lowercase class name (`hazard_area`) breaks Godot's PascalCase convention for `class_name`, but it's still technically valid.
 
-> Catatan: nama class huruf kecil (`hazard_area`) menyalahi konvensi PascalCase Godot untuk `class_name`, tapi tetap valid secara teknis.
+| Export var | Default | Description |
+|---|---|---|
+| `damage` | 2.00 | damage per contact tick (overridden to `0.1` in the `spikes.tscn` scene) |
 
-| Export var | Default | Keterangan                                                             |
-| ---------- | ------- | ---------------------------------------------------------------------- |
-| `damage`   | 2.00    | damage per tick kontak (di scene `spikes.tscn` di-override jadi `0.1`) |
+| Method | Description |
+|---|---|
+| `_on_area_entered(area)` | If the area is a `HitboxComponent` → `area.health_component.take_damage(damage)` |
 
-| Method                   | Deskripsi                                                                        |
-| ------------------------ | -------------------------------------------------------------------------------- |
-| `_on_area_entered(area)` | Jika area adalah `HitboxComponent` → `area.health_component.take_damage(damage)` |
-
-Dipakai oleh scene `Obstacles/spikes.tscn` dan beberapa instance duri (`Thorns` TileMapLayer) di `area_test.tscn`.
+Used by the `Obstacles/spikes.tscn` scene and several spike instances (`Thorns` TileMapLayer) in `area_test.tscn`.
 
 ---
 
-## 6. Referensi Scene
+## 6. Scene Reference
 
 ### 6.1 `Scenes/Character/player.tscn`
-
 ```
 Player (CharacterBody2D, script: player.gd, collision_mask=3)
 ├── Sprites (Node2D)
-│   ├── Body (Sprite2D, spritesheet 6×9 frame, shader: flash_hit)
-│   └── AnimationPlayer (17 animasi: idle/move ×4 arah, attack ×4 arah ×2 combo, + RESET)
+│   ├── Body (Sprite2D, 6×9 frame spritesheet, shader: flash_hit)
+│   └── AnimationPlayer (17 animations: idle/move ×4 directions, attack ×4 directions ×2 combo, + RESET)
 ├── CollisionShape2D (Capsule, r=5 h=14)
 ├── StateMachine (Node)
 │   ├── Idle
@@ -465,14 +422,13 @@ Player (CharacterBody2D, script: player.gd, collision_mask=3)
 ├── HealthComponent (Node, max_health=3)
 ├── HitboxComponent (Area2D, groups: Hitable, Player, player)
 │   └── CollisionShape2D (Rectangle 8×12)
-└── SwordArea (Area2D, damage_component.gd — invisible, collision toggle via animation track)
+└── SwordArea (Area2D, damage_component.gd — invisible, collision toggled via animation track)
     └── CollisionShape2D (Rectangle 28×27, disabled by default)
 ```
 
-**Detail penting**: Track animasi pada tiap `attack_<dir>` **mengubah posisi & `disabled` dari `SwordArea/CollisionShape2D`** secara sinkron dengan frame animasi — collision pedang hanya aktif pada frame tengah serangan (`times: [0, 0.1]`, `disabled: [false, true]`), lalu posisinya digeser sesuai arah tebasan (`Vector2(0,16)` untuk down, `Vector2(-16,0)` untuk left, dst).
+**Important detail**: the animation tracks for each `attack_<dir>` **modify the position & `disabled` state of `SwordArea/CollisionShape2D`** in sync with the animation frames — the sword's collision is only active on the mid-swing frame (`times: [0, 0.1]`, `disabled: [false, true]`), and its position shifts to match the swing direction (`Vector2(0,16)` for down, `Vector2(-16,0)` for left, etc.).
 
 ### 6.2 `Scenes/Character/dummy.tscn`
-
 ```
 CharacterBody2D (script: dummy.gd)
 ├── Sprite2D (shader: flash_hit)
@@ -482,11 +438,9 @@ CharacterBody2D (script: dummy.gd)
 │   └── CollisionShape2D (Rectangle 10×18)
 └── VelocityComponent (dummy_velocity.gd)
 ```
-
-Tidak ada `InputComponent`/`StateMachine` — Dummy murni pasif, hanya bisa menerima damage & knockback.
+No `InputComponent`/`StateMachine` — the Dummy is purely passive, it can only receive damage & knockback.
 
 ### 6.3 `Scenes/Obstacles/spikes.tscn`
-
 ```
 Spikes (Area2D, hazard_area.gd, damage=0.1)
 ├── Sprite2D
@@ -494,91 +448,82 @@ Spikes (Area2D, hazard_area.gd, damage=0.1)
 ```
 
 ### 6.4 `Scenes/UI/button.tscn`
-
 ```
 Button (TextureButton)
-  texture_normal / texture_focused dari Assets/UIs/Button/
+  texture_normal / texture_focused from Assets/UIs/Button/
 ```
-
-Belum ada script — murni visual template tombol.
+No script attached yet — a purely visual button template.
 
 ### 6.5 `Scenes/area_test.tscn` (⭐ Main Scene)
-
 ```
 AreaTest (Node2D)
 ├── Tilemap (Node2D)
-│   ├── Ground, Cliff1, Shadow, Thorns, Path, Tree  (semua TileMapLayer, tileset: tile_set.tres)
-│   └── (beberapa instance Area2D duri di layer Thorns terhubung ke hazard_area.gd)
-├── Player (instance player.tscn)
+│   ├── Ground, Cliff1, Shadow, Thorns, Path, Tree  (all TileMapLayer, tileset: tile_set.tres)
+│   └── (several spike Area2D instances on the Thorns layer wired to hazard_area.gd)
+├── Player (instance of player.tscn)
 │   └── Camera2D (zoom 1.4×, smoothing on)
-└── Dummy (instance dummy.tscn, posisi test di (127,-87))
+└── Dummy (instance of dummy.tscn, test position at (127,-87))
 ```
-
-Level uji sederhana: tilemap grass/cliff/path/tree berlapis, area duri, satu Player dengan kamera mengikuti, satu Dummy untuk latihan combat.
+A simple test level: layered grass/cliff/path/tree tilemaps, a spike area, one Player with a following camera, and one Dummy for combat practice.
 
 ### 6.6 `Scenes/propechy.tscn`
-
-Scene showcase terpisah untuk shader `sssss.gdshader` (lihat §9.2) — menampilkan sprite "prophecy" dengan efek echo/scrolling di atas background biru, dengan Camera2D zoom 4×. Sepertinya scene eksperimen/test shader, belum terhubung ke gameplay utama.
-
----
-
-## 7. Sistem Combat & Damage — Alur End-to-End
-
-1. Pemain tekan **attack** → `player.gd._process()` cek `PlayerActionManager.can_attack` → kunci 0.3s → FSM pindah ke **Attack**.
-2. **Attack.enter()** naikkan combo counter, pilih animasi `attack_<arah><1|2>`, mainkan.
-3. Track animasi mengaktifkan `SwordArea` (`damage_component.gd`) tepat di frame tengah, memposisikannya searah tebasan.
-4. Jika `SwordArea` overlap dengan `HitboxComponent` musuh (group `Hitable`, bukan `player`) → `_on_area_entered()` panggil `target.health_component.take_damage()` + `knockback()`.
-5. `HealthComponent.take_damage()` kurangi HP, trigger **flash putih** via shader `flash_hit.gdshader`, dan jika HP ≤ 0 → `queue_free()` (entity langsung hilang).
-6. Setelah animasi attack selesai → otomatis kembali ke **Idle**.
-7. Alternatif damage: kontak langsung dengan `hazard_area.gd` (duri) — tidak butuh serangan aktif, cukup `HitboxComponent` overlap area bahaya.
+A separate showcase scene for the `sssss.gdshader` shader (see §9.2) — displays a "prophecy" sprite with an echo/scrolling effect over a blue background, with the Camera2D zoomed 4×. Appears to be an experimental/shader-test scene, not yet wired into the main gameplay.
 
 ---
 
-## 8. Shader
+## 7. Combat & Damage System — End-to-End Flow
+
+1. The player presses **attack** → `player.gd._process()` checks `PlayerActionManager.can_attack` → locks it for 0.3s → the FSM switches to **Attack**.
+2. **Attack.enter()** increments the combo counter, picks the `attack_<direction><1|2>` animation, and plays it.
+3. The animation track enables `SwordArea` (`damage_component.gd`) right on the mid-swing frame, positioning it in the direction of the swing.
+4. If `SwordArea` overlaps an enemy's `HitboxComponent` (in the `Hitable` group, not `player`) → `_on_area_entered()` calls `target.health_component.take_damage()` + `knockback()`.
+5. `HealthComponent.take_damage()` reduces HP, triggers a **white flash** via the `flash_hit.gdshader` shader, and if HP ≤ 0 → `queue_free()` (the entity is removed immediately).
+6. Once the attack animation finishes → automatically returns to **Idle**.
+7. Alternative damage source: direct contact with `hazard_area.gd` (spikes) — no active attack needed, an overlapping `HitboxComponent` on a hazard area is enough.
+
+---
+
+## 8. Shaders
 
 ### 8.1 `Shaders/flash_hit.gdshader`
-
-Shader `canvas_item` sederhana — 2 uniform (`hit_flash_color`, `hit_flash_on`). Saat `hit_flash_on == true`, warna sprite diganti total jadi `hit_flash_color` (default putih) sambil mempertahankan alpha asli. Dipasang sebagai material di sprite Player & Dummy, dikontrol dari `HealthComponent.flash_hit()`.
+A simple `canvas_item` shader — 2 uniforms (`hit_flash_color`, `hit_flash_on`). When `hit_flash_on == true`, the sprite's color is entirely replaced with `hit_flash_color` (default white) while preserving the original alpha. Attached as the material on the Player & Dummy sprites, controlled from `HealthComponent.flash_hit()`.
 
 ### 8.2 `sssss.gdshader`
-
-Shader jauh lebih kompleks — efek "echo/afterimage + scrolling texture + bobbing", dipakai di scene showcase `propechy.tscn`. Fitur:
-
-- **Scrolling texture**: geser tekstur sekunder (`Scroll_Texture`) secara berkelanjutan sebagai background berjalan.
-- **Bobbing**: sprite naik-turun sinusoidal (`Height`, `Cycles`, `Offset`).
-- **Echoes**: menggambar N salinan sprite bergeser progresif dengan alpha meluruh (`Distance`, `Count`, `Fade`), opsional dua arah (`Pulse_both_Directions`), dua mode blending (Mix / Additive), dengan tint warna progresif.
-  Shader ini tidak dipakai di gameplay utama saat ini — statusnya eksperimen visual/VFX untuk fitur masa depan (kemungkinan efek "phantom"/hantu atau item mistis, mengingat nama file `my_propechy.png`).
+A much more complex shader — an "echo/afterimage + scrolling texture + bobbing" effect, used in the `propechy.tscn` showcase scene. Features:
+- **Scrolling texture**: continuously shifts a secondary texture (`Scroll_Texture`) to act as a moving background.
+- **Bobbing**: sinusoidal up-and-down sprite movement (`Height`, `Cycles`, `Offset`).
+- **Echoes**: draws N progressively offset copies of the sprite with decaying alpha (`Distance`, `Count`, `Fade`), optionally in both directions (`Pulse_both_Directions`), with two blend modes (Mix / Additive) and a progressive color tint.
+This shader is not currently used anywhere in the main gameplay — it looks like a visual/VFX experiment for a future feature (possibly a "phantom"/ghost effect or a mystical item, given the file name `my_propechy.png`).
 
 ---
 
-## 9. Addon Pihak Ketiga — `discord-rpc-gd`
+## 9. Third-Party Addon — `discord-rpc-gd`
 
-Terletak di `addons/discord-rpc-gd/`. Ini adalah addon eksternal (GDExtension, binary `.so`/`.dll`/`.dylib` untuk Linux/Windows/macOS) untuk integrasi **Discord Rich Presence** via Discord Game SDK. Berisi:
+Located at `addons/discord-rpc-gd/`. This is an external addon (GDExtension, with `.so`/`.dll`/`.dylib` binaries for Linux/Windows/macOS) for **Discord Rich Presence** integration via the Discord Game SDK. It contains:
+- `plugin.gd` — the editor plugin entry point
+- `nodes/discord_autoload.gd` — an optional autoload node for RPC
+- `nodes/debug.gd` + `Debug.tscn` — an in-editor debug panel
+- `example.gd` — usage example
 
-- `plugin.gd` — entry point plugin editor
-- `nodes/discord_autoload.gd` — node autoload opsional untuk RPC
-- `nodes/debug.gd` + `Debug.tscn` — panel debug in-editor
-- `example.gd` — contoh pemakaian API
-
-Status saat ini: **plugin belum diaktifkan** — `project.godot` bagian `[editor_plugins]` masih `enabled=PackedStringArray()` (kosong). Jadi addon ini sudah tersedia di project tapi belum di-enable/dipakai di kode game.
-
----
-
-## 10. Catatan Teknis & Potensi Perbaikan
-
-Beberapa temuan selama analisis code (bukan bug fatal, sekadar catatan untuk cleanup ke depan):
-
-1. **Typo penamaan file/class** — `heatlh_component.gd` (harusnya "health"), `state_mechine.gd` (harusnya "machine"), class `hazard_area` tidak PascalCase. Tidak memengaruhi fungsi, tapi bisa membingungkan saat autocomplete/search.
-2. **`InputComponent.attack_disabled`** disiapkan sebagai flag lock manual, tapi fungsi `start_attack_cooldown()` yang men-set-nya sudah dikomentari — lock cooldown attack saat ini sepenuhnya ditangani oleh `PlayerActionManager`, jadi field ini efektif tidak terpakai.
-3. **`HealthComponent.die()`** langsung `queue_free()` tanpa animasi kematian, sound, drop, atau signal `died` — kemungkinan placeholder untuk dikembangkan.
-4. **Transisi ke Attack/Dash** dipicu langsung dari `player.gd` (bukan dari dalam state `Idle`/`Move`), sedikit tidak konsisten dengan pola FSM murni di mana idealnya semua logic transisi state ada di dalam state itu sendiri — tapi ini pilihan desain yang valid mengingat attack/dash bisa dipicu dari state manapun (interrupt).
-5. Ditemukan file sisa proses save Godot yang belum ke-cleanup: `Scenes/Character/filint.tscn*.tmp` (5 file `.tmp`) — aman dihapus, biasanya residu crash/autosave editor.
-6. Beberapa aset di `Assets/Unknown/` tampak duplikat/typo (`my_propechy.png` vs `my_prophecy.png`) — kemungkinan sisa eksperimen, bisa dirapikan.
-7. Scene `propechy.tscn` dan shader `sssss.gdshader` sepertinya masih tahap eksperimen VFX, belum terhubung ke `area_test.tscn` (main scene).
+Current status: **the plugin is not enabled** — the `[editor_plugins]` section of `project.godot` still has `enabled=PackedStringArray()` (empty). So the addon is present in the project but is not yet enabled/used by the game's code.
 
 ---
 
-## 11. Ringkasan Dependency Antar Komponen
+## 10. Technical Notes & Potential Improvements
+
+A few findings from the code analysis (not critical bugs, just cleanup notes for the future):
+
+1. **Naming typos** — `heatlh_component.gd` (should be "health"), `state_mechine.gd` (should be "machine"), the `hazard_area` class isn't PascalCase. These don't affect functionality but could cause confusion during autocomplete/search.
+2. **`InputComponent.attack_disabled`** is set up as a manual lock flag, but the `start_attack_cooldown()` function that would set it is commented out — attack cooldown locking is currently handled entirely by `PlayerActionManager`, so this field is effectively unused.
+3. **`HealthComponent.die()`** calls `queue_free()` directly with no death animation, sound, item drop, or `died` signal — likely a placeholder for future development.
+4. **Transitions into Attack/Dash** are triggered directly from `player.gd` (rather than from within the `Idle`/`Move` states), which is slightly inconsistent with a "pure" FSM pattern where all transition logic would ideally live inside the states themselves — but this is a valid design choice, since attack/dash can be triggered from any state (an interrupt).
+5. Leftover Godot save artifacts were found that haven't been cleaned up: `Scenes/Character/filint.tscn*.tmp` (5 `.tmp` files) — safe to delete, usually left behind by an editor crash/autosave.
+6. Some assets under `Assets/Unknown/` look duplicated/misspelled (`my_propechy.png` vs `my_prophecy.png`) — likely leftovers from experimentation that could be tidied up.
+7. The `propechy.tscn` scene and `sssss.gdshader` shader still appear to be in the VFX-experimentation stage, not yet connected to `area_test.tscn` (the main scene).
+
+---
+
+## 11. Component Dependency Summary
 
 ```
 PlayerActionManager (Autoload)
@@ -596,9 +541,9 @@ PlayerActionManager (Autoload)
                          │
         SwordArea (damage_component.gd) ──overlap──► HitboxComponent (target)
                                                               │
-                                                     hazard_area.gd (duri) juga bisa trigger take_damage()
+                                                     hazard_area.gd (spikes) can also trigger take_damage()
 ```
 
 ---
 
-_Dokumen ini dibuat otomatis berdasarkan pembacaan langsung seluruh source code di repo (per 10 Juli 2026). Jika struktur project berubah, regenerasi dokumen ini disarankan._
+*This document was generated automatically from a direct reading of the repository's full source code (as of July 10, 2026). If the project structure changes, regenerating this document is recommended.*
