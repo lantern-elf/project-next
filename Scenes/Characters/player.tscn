@@ -978,6 +978,7 @@ animation_player = NodePath("../../Sprites/AnimationPlayer")
 velocity_component = NodePath("../../VelocityComponent")
 input = NodePath("../../InputComponent")
 health_component = NodePath("../../HealthComponent")
+is_uninterruptible = true
 metadata/_custom_type_script = "uid://bm2f3j8do6unm"
 
 [node name="Dash" type="Node" parent="StateMachine" unique_id=1377635766 node_paths=PackedStringArray("body", "state_machine", "animation_player", "velocity_component", "input", "health_component")]

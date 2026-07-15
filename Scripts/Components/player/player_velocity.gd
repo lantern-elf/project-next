@@ -20,6 +20,7 @@ func _physics_process(delta: float) -> void:
 
 func move(direction: Vector2, _speed = speed):
 	body.velocity = direction.normalized() * _speed
+	update_facing_direction()
 
 func attack_move(direction: Vector2):
 	if is_boosting:

@@ -15,6 +15,9 @@ var initial_direction: String = "down"
 var current_direction: String = "down"
 var last_direction: String = "down"
 
+var facing_direction: String = "down"
+var direction_locked: bool = false
+
 signal knockback_finished
 
 func get_direction_name(input_vector: Vector2, previous_direction: String) -> String:
@@ -58,7 +61,19 @@ func get_direction_vector():
 		"right" : Vector2.RIGHT
 	}
 	return directions_mapping.get(current_direction)
-	
+
+func update_facing_direction() -> void:
+	if direction_locked:
+		return
+	facing_direction = current_direction
+
+func lock_direction() -> void:
+	direction_locked = true
+
+func unlock_direction() -> void:
+	direction_locked = false
+	facing_direction = current_direction
+
 func knockback(power: float, source: Vector2, duration: float = .1) -> void:
 	var knockback_direction = (body.global_position - source).normalized() 
 	body.velocity = knockback_direction * power
