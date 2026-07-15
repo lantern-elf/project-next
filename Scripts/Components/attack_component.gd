@@ -9,4 +9,6 @@ another emeny's Hitbox, damage is dealt to that enemy.
 
 @export var body: CharacterBody2D
 @export var velocity_component: VelocityComponent
+
 @export var attack_damage: float = 1.00
+@export var attack_blocked: bool = false

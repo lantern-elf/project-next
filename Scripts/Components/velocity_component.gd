@@ -70,9 +70,9 @@ func update_facing_direction() -> void:
 func lock_direction() -> void:
 	direction_locked = true
 
-func unlock_direction() -> void:
+func unlock_direction():
 	direction_locked = false
-	facing_direction = current_direction
+	current_direction = facing_direction
 
 func knockback(power: float, source: Vector2, duration: float = .1) -> void:
 	var knockback_direction = (body.global_position - source).normalized() 

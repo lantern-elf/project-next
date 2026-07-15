@@ -1022,7 +1022,7 @@ velocity_component = NodePath("../VelocityComponent")
 state_machine = NodePath("../StateMachine")
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
-[node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Player"]]
+[node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Hitable", "Player"]]
 script = ExtResource("11_s7hvb")
 body = NodePath("..")
 health_component = NodePath("../HealthComponent")

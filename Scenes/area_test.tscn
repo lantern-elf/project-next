@@ -3,6 +3,7 @@
 [ext_resource type="TileSet" uid="uid://cityc17xubwb3" path="res://Assets/Tilesets/tile_set.tres" id="1_slpi0"]
 [ext_resource type="PackedScene" uid="uid://c6s31ag0fmwlw" path="res://Scenes/Characters/player.tscn" id="2_vput8"]
 [ext_resource type="PackedScene" uid="uid://cwfl8qpg2fqwa" path="res://Scenes/Characters/dummy.tscn" id="3_grga3"]
+[ext_resource type="PackedScene" uid="uid://bdl4wtw80w153" path="res://Scenes/Unused/attack_test.tscn" id="4_5y45e"]
 
 [node name="AreaTest" type="Node2D" unique_id=93933606]
 y_sort_enabled = true
@@ -52,3 +53,6 @@ position_smoothing_enabled = true
 
 [node name="Dummy" parent="." unique_id=239896592 instance=ExtResource("3_grga3")]
 position = Vector2(-149, -76)
+
+[node name="AttackTest" parent="." unique_id=1960558947 instance=ExtResource("4_5y45e")]
+position = Vector2(74, -75)

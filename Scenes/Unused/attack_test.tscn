@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://bdl4wtw80w153"]
+
+[ext_resource type="Script" uid="uid://cd22sji537by1" path="res://Scripts/unused/enemy_attack_area_test.gd" id="1_8kfr4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_riqys"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sn0t7"]
+size = Vector2(16, 16)
+
+[node name="AttackTest" type="CharacterBody2D" unique_id=1960558947]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1485047294]
+visible = false
+shape = SubResource("RectangleShape2D_riqys")
+
+[node name="AttackComponent" type="Area2D" parent="." unique_id=598049116 node_paths=PackedStringArray("body")]
+script = ExtResource("1_8kfr4")
+body = NodePath("..")
+metadata/_custom_type_script = "uid://cdhu5osdubd83"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackComponent" unique_id=1050665031]
+shape = SubResource("RectangleShape2D_sn0t7")
+debug_color = Color(1, 0.25390625, 0.25390625, 0.41960785)
+
+[connection signal="area_entered" from="AttackComponent" to="AttackComponent" method="_on_area_entered"]
