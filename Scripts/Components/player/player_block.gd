@@ -7,20 +7,13 @@ func enter():
 	print("block")
 
 func update(_delta: float):
-	var dir =  velocity_component.current_direction
-	var act1 = "block"
-	var act2 = ""
-	if input.get_input_direction() == Vector2.ZERO:
-		act2 = "idle"
-	else :
-		act2 = "move"
-		
-	var act = act2 + act1
-	
-	animation_player.play_animation(act, dir)
+	var input_dir := input.get_input_direction()
+	var act := ("idle" if input_dir == Vector2.ZERO else "move") + "block"
+
+	animation_player.play_animation(act, velocity_component.current_direction)
+
 	if not input.block():
 		Transitioned.emit(self, "idle")
-	pass
 
 func physics_update(_delta: float):
 	velocity_component.move(input.get_input_direction())
@@ -28,4 +21,3 @@ func physics_update(_delta: float):
 func exit():
 	block_component.collider.disabled = true
 	print("not block")
-	
