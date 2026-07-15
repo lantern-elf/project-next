@@ -33,7 +33,8 @@ Accessed globally by the name `PlayerActionManager` from any script without need
 | Action | Keyboard | Gamepad |
 |---|---|---|
 | `attack` | X | Joypad button 2 |
-| `dash` | Shift (physical keycode 4194326) | Joypad button 0 |
+| `dash` | CTRL | Joypad button 0 |
+| `block` | SHIFT | - |
 
 Movement (`ui_left/right/up/down`) uses Godot's built-in input actions.
 
@@ -297,7 +298,7 @@ The main script on the Player's root node. It is **not** part of the FSM itself 
 
 **State flow diagram**
 ```
-       directional input
+	   directional input
 Idle ───────────────► Move
  ▲                      │
  │ no input              │ no input
@@ -423,7 +424,7 @@ Player (CharacterBody2D, script: player.gd, collision_mask=3)
 ├── HitboxComponent (Area2D, groups: Hitable, Player, player)
 │   └── CollisionShape2D (Rectangle 8×12)
 └── SwordArea (Area2D, damage_component.gd — invisible, collision toggled via animation track)
-    └── CollisionShape2D (Rectangle 28×27, disabled by default)
+	└── CollisionShape2D (Rectangle 28×27, disabled by default)
 ```
 
 **Important detail**: the animation tracks for each `attack_<dir>` **modify the position & `disabled` state of `SwordArea/CollisionShape2D`** in sync with the animation frames — the sword's collision is only active on the mid-swing frame (`times: [0, 0.1]`, `disabled: [false, true]`), and its position shifts to match the swing direction (`Vector2(0,16)` for down, `Vector2(-16,0)` for left, etc.).
