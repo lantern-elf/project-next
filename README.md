@@ -1,7 +1,6 @@
 # project-next — Architecture Documentation
 
 > Action-Adventure Zelda-like game built in **Godot 4.7** (GDScript, GL Compatibility renderer).
-> This document was generated from a full analysis of the `lantern-elf/project-next` repository source code.
 
 ---
 
