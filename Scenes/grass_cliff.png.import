@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dd85xlhnjnac5"
-path="res://.godot/imported/birch_tree.png-3b707b9aa7a5fbf6f5ea32b87eb0f6c6.ctex"
+uid="uid://1m534y5rs4ih"
+path="res://.godot/imported/grass_cliff.png-add5f65f26f1abf84446324851d7e735.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Tilesets/birch_tree.png"
-dest_files=["res://.godot/imported/birch_tree.png-3b707b9aa7a5fbf6f5ea32b87eb0f6c6.ctex"]
+source_file="res://Scenes/grass_cliff.png"
+dest_files=["res://.godot/imported/grass_cliff.png-add5f65f26f1abf84446324851d7e735.ctex"]
 
 [params]
 

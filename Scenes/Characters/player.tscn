@@ -1037,7 +1037,6 @@ debug_color = Color(0, 1, 0.13335153, 0.16100001)
 metadata/_edit_lock_ = true
 
 [node name="AttackComponent" type="Area2D" parent="." unique_id=1953785306 node_paths=PackedStringArray("body", "velocity_component")]
-visible = false
 script = ExtResource("16_dxpk4")
 body = NodePath("..")
 velocity_component = NodePath("../VelocityComponent")
