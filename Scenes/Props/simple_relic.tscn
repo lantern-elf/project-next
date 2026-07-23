@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://b5o3aeqe6ey21"]
+
+[ext_resource type="Script" uid="uid://bxmhft4876mkr" path="res://Scenes/Props/simple_relic.gd" id="1_ll0nt"]
+[ext_resource type="Texture2D" uid="uid://bdqp1erdhwhus" path="res://Assets/Tilesets/simple_relic.png" id="1_rti6l"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rti6l"]
+size = Vector2(16, 13)
+
+[node name="SimpleRelic" type="CharacterBody2D" unique_id=905910262 groups=["Pushable"]]
+y_sort_enabled = true
+motion_mode = 1
+script = ExtResource("1_ll0nt")
+
+[node name="SimpleRelic" type="Sprite2D" parent="." unique_id=42488030]
+texture = ExtResource("1_rti6l")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=886924345]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_rti6l")

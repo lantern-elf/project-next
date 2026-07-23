@@ -18,6 +18,8 @@ var last_direction: String = "down"
 var facing_direction: String = "down"
 var direction_locked: bool = false
 
+@warning_ignore("unused_signal")
+signal moved
 signal knockback_finished
 
 func get_direction_name(input_vector: Vector2, previous_direction: String) -> String:

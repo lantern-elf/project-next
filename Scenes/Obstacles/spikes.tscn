@@ -7,7 +7,7 @@
 size = Vector2(7.5, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_riqys"]
-size = Vector2(13, 14)
+size = Vector2(9, 10)
 
 [node name="Spikes" type="StaticBody2D" unique_id=353695539]
 y_sort_enabled = true

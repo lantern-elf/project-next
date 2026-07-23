@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://dtfps8qf1x1qu" path="res://Scripts/Components/player/player.gd" id="1_euf1r"]
 [ext_resource type="Shader" uid="uid://bj37inhhj0a62" path="res://Shaders/flash_hit.gdshader" id="2_t23lb"]
 [ext_resource type="Texture2D" uid="uid://denj8o6tubo3k" path="res://Assets/Characters/player/player.png" id="2_yg3nc"]
+[ext_resource type="Texture2D" uid="uid://b8hvp02hvhaut" path="res://Assets/Characters/player/player_normal_map.png" id="4_yt1oc"]
 [ext_resource type="Script" uid="uid://d2wdhnd1xm5g8" path="res://Scripts/Components/animation_player.gd" id="5_gbr73"]
 [ext_resource type="Script" uid="uid://b000defd3f8oe" path="res://Scripts/Components/state_machine.gd" id="6_ls1a5"]
 [ext_resource type="Script" uid="uid://bwpids7ole6x3" path="res://Scripts/Components/player/player_idle.gd" id="7_qacmv"]
@@ -24,6 +25,10 @@
 shader = ExtResource("2_t23lb")
 shader_parameter/hit_flash_color = Color(1, 1, 1, 1)
 shader_parameter/hit_flash_on = false
+
+[sub_resource type="CanvasTexture" id="CanvasTexture_riqys"]
+diffuse_texture = ExtResource("2_yg3nc")
+normal_texture = ExtResource("4_yt1oc")
 
 [sub_resource type="Animation" id="Animation_q88xf"]
 length = 0.001
@@ -891,7 +896,7 @@ radius = 5.0
 height = 12.0
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hv1gp"]
-size = Vector2(14, 33)
+size = Vector2(12, 15)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bhunq"]
 size = Vector2(26, 27)
@@ -916,7 +921,7 @@ input_component = NodePath("InputComponent")
 
 [node name="Body" type="Sprite2D" parent="Sprites" unique_id=18059703]
 material = SubResource("ShaderMaterial_c8qqk")
-texture = ExtResource("2_yg3nc")
+texture = SubResource("CanvasTexture_riqys")
 hframes = 6
 vframes = 9
 metadata/_edit_lock_ = true
@@ -1023,6 +1028,7 @@ state_machine = NodePath("../StateMachine")
 metadata/_custom_type_script = "uid://b5hg3o5jwmbmj"
 
 [node name="HitboxComponent" type="Area2D" parent="." unique_id=2079328294 node_paths=PackedStringArray("body", "health_component", "velocity_component") groups=["Hitable", "Player"]]
+visible = false
 script = ExtResource("11_s7hvb")
 body = NodePath("..")
 health_component = NodePath("../HealthComponent")
@@ -1031,12 +1037,12 @@ metadata/_custom_type_script = "uid://bbjqboc0c7kua"
 metadata/_edit_lock_ = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="HitboxComponent" unique_id=211747250]
-position = Vector2(0, 0.5)
+position = Vector2(0, 9.5)
 shape = SubResource("RectangleShape2D_hv1gp")
 debug_color = Color(0, 1, 0.13335153, 0.16100001)
-metadata/_edit_lock_ = true
 
 [node name="AttackComponent" type="Area2D" parent="." unique_id=1953785306 node_paths=PackedStringArray("body", "velocity_component")]
+visible = false
 script = ExtResource("16_dxpk4")
 body = NodePath("..")
 velocity_component = NodePath("../VelocityComponent")
@@ -1050,6 +1056,7 @@ debug_color = Color(0.68359375, 0.26435852, 0.26435852, 0.41960785)
 metadata/_edit_lock_ = true
 
 [node name="BlockComponent" type="Area2D" parent="." unique_id=203393047 node_paths=PackedStringArray("collider")]
+visible = false
 script = ExtResource("17_15c3i")
 collider = NodePath("CollisionShape2D")
 metadata/_custom_type_script = "uid://bp8f7rkr8dul1"

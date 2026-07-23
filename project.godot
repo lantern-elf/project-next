@@ -34,8 +34,6 @@ TimeManager="*uid://bvjdrk7ocrm2u"
 
 window/size/viewport_width=640
 window/size/viewport_height=360
-window/size/resizable=false
-window/size/borderless=true
 window/stretch/mode="canvas_items"
 
 [dotnet]
